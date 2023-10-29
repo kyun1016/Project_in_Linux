@@ -1,3 +1,4 @@
+
 # Prerequisites
 *.d
 
@@ -30,3 +31,13 @@
 *.exe
 *.out
 *.app
+
+# dummy file
+*.swp
+*.swo
+
+# Project Directory
+/*/03_Sim/*
+/*/04_Lint/*
+/*/05_Pre_Synthesis/*
+/*/zz_*/*
