@@ -37,7 +37,7 @@
 *.swo
 
 # Project Directory
-/*/03_Sim/*
-/*/04_Lint/*
-/*/05_Pre_Synthesis/*
-/*/zz_*/*
+/PROJECT/*/03_Sim/*
+/PROJECT/*/04_Lint/*
+/PROJECT/*/05_Pre_Synthesis/*
+/PROJECT/*/zz_*/*
