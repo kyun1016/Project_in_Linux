@@ -1,3 +1,5 @@
+FILES=file[1-9]
+
 all: make_dir
 
 make_dir:
@@ -17,3 +19,13 @@ make_dir:
 		mkdir $${prj_name}/03_Sim/3_post ;\
 		mkdir $${prj_name}/04_Lint ;\
 		mkdir $${prj_name}/05_Pre_Synthesis
+
+cat:
+		cat <<EOF > test.a
+		hi
+		EOF
+
+test: $(FILES)
+		cat $(FILES) > $@
+
+
