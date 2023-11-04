@@ -2,20 +2,25 @@
 
 module tb_top;
   reg clk;
-  reg rst_n;
+  reg rstn;
+  reg clk_apb;
+  reg rstn_apb;
+
   itf_data m_itf(
-    .clk  (clk  ),
-    .rst_n(rst_n)
+    .clk      (clk     ),
+    .rstn     (rstn    ),
+    .clk_apb  (clk_apb ),
+    .rstn_apb (rstn_apb)
   );
 
   initial begin : clk_reset_control
     clk   = 0;
-    rst_n = 1;
+    rstn = 1;
     fork
       forever #1 clk = ~clk;
       begin
-        #10   rst_n = 0;
-        #1000 rst_n = 1;
+        #10   rstn = 0;
+        #1000 rstn = 1;
       end
     join
   end
@@ -26,17 +31,8 @@ module tb_top;
   end
 
   initial begin : main
-    @(posedge rst_n);
-    m_itf.i_en      = 1;
+    @(posedge rstn);
     m_itf.i_x       = 24;
-    m_itf.i_weight0 = 104;
-    m_itf.i_weight1 = 235;
-    m_itf.i_weight2 = 293;
-    m_itf.i_weight3 = 439;
-    m_itf.i_weight4 = 595;
-    m_itf.i_weight5 = 662;
-    m_itf.i_weight6 = 691;
-    m_itf.i_weight7 = 694;
 
     repeat(100) 
       @(posedge clk);
@@ -45,19 +41,18 @@ module tb_top;
 
 
   rtl_top u_rtl_top(
-    .clk      (m_itf.clk      ),
-    .rst_n    (m_itf.rst_n    ),
-    .i_en     (m_itf.i_en     ),
-    .i_x      (m_itf.i_x      ),
-    .i_weight0(m_itf.i_weight0),
-    .i_weight1(m_itf.i_weight1),
-    .i_weight2(m_itf.i_weight2),
-    .i_weight3(m_itf.i_weight3),
-    .i_weight4(m_itf.i_weight4),
-    .i_weight5(m_itf.i_weight5),
-    .i_weight6(m_itf.i_weight6),
-    .i_weight7(m_itf.i_weight7),
-    .o_y      (m_itf.o_y      )
+    .clk            (m_itf.clk            ),
+    .rstn           (m_itf.rstn           ),
+    .clk_apb        (m_itf.clk_apb        ),
+    .rstn_apb       (m_itf.rstn_apb       ),
+    .i_apb_addr     (m_itf.i_apb_addr     ),
+    .i_apb_data     (m_itf.i_apb_data     ),
+    .i_apb_wait     (m_itf.i_apb_wait     ),
+    .i_apb_write_trg(m_itf.i_apb_write_trg),
+    .i_apb_read_trg (m_itf.i_apb_read_trg ),
+    .i_apb_sel      (m_itf.i_apb_sel      ),
+    .i_x            (m_itf.i_x            ),
+    .o_y            (m_itf.o_y            )
   );
 
 endmodule
