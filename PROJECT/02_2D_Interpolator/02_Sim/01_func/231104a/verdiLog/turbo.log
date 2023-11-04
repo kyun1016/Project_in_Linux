@@ -1,3 +1,0 @@
-Command Line: /home/park/synopsys/Verdi_O-2018.09-SP2/platform/LINUXAMD64/bin/Novas -dbdir ./simv.daidir -ssf ./03_fsdb/waveform.fsdb
-uname(Linux park-VirtualBox 5.15.0-87-generic #97~20.04.1-Ubuntu SMP Thu Oct 5 08:25:28 UTC 2023 x86_64)
-au time 194.450027 14.477410 19.585522 delta 493211648 493211648 total 866729984 866729984

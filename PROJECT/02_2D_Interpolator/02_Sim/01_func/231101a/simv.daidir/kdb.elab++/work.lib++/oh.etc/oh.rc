@@ -1,5 +1,0 @@
-@elabcom rc file Version 1.0
-[oh]
-invokeDir = /home/park/PROJECT/02_2D_Interpolator/03_Sim/1_func/231101a
-hostCommand = -lib /home/park/PROJECT/02_2D_Interpolator/03_Sim/1_func/231101a/./simv.daidir/work -elab /home/park/PROJECT/02_2D_Interpolator/03_Sim/1_func/231101a/./simv.daidir/kdb -simflow -top "tb_top " -Lf work -SNPS_ELABCOM -saveElab
-simType = VCS

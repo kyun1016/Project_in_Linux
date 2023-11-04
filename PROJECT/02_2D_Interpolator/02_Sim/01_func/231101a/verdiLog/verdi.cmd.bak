@@ -1,5 +1,0 @@
-debImport "-dbdir" "./simv.daidir"
-debLoadSimResult \
-           /home/park/PROJECT/02_2D_Interpolator/03_Sim/1_func/231101a/03_fsdb/waveform.fsdb
-wvCreateWindow
-debExit

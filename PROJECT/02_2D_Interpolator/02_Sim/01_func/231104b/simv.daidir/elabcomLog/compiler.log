@@ -1,3 +1,0 @@
-*design* DebussyLib (btIdent Verdi_O-2018.09-SP2)
-Command arguments:  -lib  /home/park/PROJECT/02_2D_Interpolator/03_Sim/1_func/231104b/./simv.daidir/work  -saveLevel  -elab  /home/park/PROJECT/02_2D_Interpolator/03_Sim/1_func/231104b/./simv.daidir/kdb  -simflow  -simdir  /home/park/PROJECT/02_2D_Interpolator/03_Sim/1_func/231104b/./simv.daidir/kdb_libs  -top  tb_top  -ssv  -ssy  -Lf  work  +disable_message+C00380+C00381  +disable_message+C00388+C00389  -SNPS_ELABCOM  -saveElab 
-Total	0 error(s),   0 warning(s)

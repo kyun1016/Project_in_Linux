@@ -1,7 +1,0 @@
-Command Line: /home/park/synopsys/VCS_O-2018.09-SP2/linux64/bin/elabcom -logdir /home/park/PROJECT/02_2D_Interpolator/03_Sim/1_func/231104a/./simv.daidir/elabcomLog -simvdaidir /home/park/PROJECT/02_2D_Interpolator/03_Sim/1_func/231104a/./simv.daidir -lib /home/park/PROJECT/02_2D_Interpolator/03_Sim/1_func/231104a/./simv.daidir/work -saveLevel -elab /home/park/PROJECT/02_2D_Interpolator/03_Sim/1_func/231104a/./simv.daidir/kdb -simflow -simdir /home/park/PROJECT/02_2D_Interpolator/03_Sim/1_func/231104a/./simv.daidir/kdb_libs -top tb_top -ssv -ssy -Lf work +disable_message+C00380+C00381 +disable_message+C00388+C00389
-uname(Linux park-VirtualBox 5.15.0-87-generic #97~20.04.1-Ubuntu SMP Thu Oct 5 08:25:28 UTC 2023 x86_64)
-[INFO] error/warning message 'C00380' has been suppressed.
-[INFO] error/warning message 'C00381' has been suppressed.
-[INFO] error/warning message 'C00388' has been suppressed.
-[INFO] error/warning message 'C00389' has been suppressed.
-au time 0.164554 0.020110 0.032820 delta 92012544 92012544 total 170094592 170094592
