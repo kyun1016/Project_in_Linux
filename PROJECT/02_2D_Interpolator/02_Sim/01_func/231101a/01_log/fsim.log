@@ -1,0 +1,109 @@
+Command: vcs -full64 -cpp g++-4.8 -cc gcc-4.8 -LDFLAGS -Wl,--no-as-needed -sverilog \
+-timescale=1ns/1ns -F /home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/list_top.f \
+-l ./01_log/fsim.log -kdb -debug_access+all -lca +V2K -cm line+cond+fsm+tgl+branch \
+-o ./simv
+*** Using c compiler gcc-4.8 instead of cc ...
+                         Chronologic VCS (TM)
+         Version L-2016.06_Full64 -- Wed Nov  1 23:26:42 2023
+               Copyright (c) 1991-2016 by Synopsys Inc.
+                         ALL RIGHTS RESERVED
+
+This program is proprietary and confidential information of Synopsys Inc.
+and may be used and disclosed only as authorized in a license agreement
+controlling such use and disclosure.
+
+
+Warning-[LCA_FEATURES_ENABLED] Usage warning
+  LCA features enabled by '-lca' argument on the command line.  For more 
+  information regarding list of LCA features please refer to Chapter "LCA 
+  features" in the VCS/VCS-MX Release Notes
+
+
+Warning-[UNK_COMP_ARG] Unknown compile time plus argument used
+  Unknown compile time plus argument 'V2K' is ignored.
+
+ + use `+plusarg_save' to bind in runtime plusargs;
+ + use `+plusarg_ignore' to suppress this message.
+Parsing design file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./01_Define/define_dir.sv'
+Parsing design file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./02_Verification/./01_class/pkg_verification.sv'
+Parsing included file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./02_Verification/./01_class/cls_dump_ctrl_f.sv'.
+Back to file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./02_Verification/./01_class/pkg_verification.sv'.
+Parsing included file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./02_Verification/./01_class/cls_dump_ctrl_l.sv'.
+Back to file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./02_Verification/./01_class/pkg_verification.sv'.
+Parsing included file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./02_Verification/./01_class/cls_dump_ppm.sv'.
+Back to file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./02_Verification/./01_class/pkg_verification.sv'.
+Parsing design file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./03_Interface/./itf_data.sv'
+Parsing design file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./04_TX_Model/./01_class/01_data/pkg_tx_data.sv'
+Parsing included file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./04_TX_Model/./01_class/01_data/cls_clock_train_pattern.sv'.
+Back to file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./04_TX_Model/./01_class/01_data/pkg_tx_data.sv'.
+Parsing included file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./04_TX_Model/./01_class/01_data/cls_ctrl_f.sv'.
+Back to file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./04_TX_Model/./01_class/01_data/pkg_tx_data.sv'.
+Parsing included file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./04_TX_Model/./01_class/01_data/cls_ctrl_l.sv'.
+Back to file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./04_TX_Model/./01_class/01_data/pkg_tx_data.sv'.
+Parsing included file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./04_TX_Model/./01_class/01_data/cls_k_symbol.sv'.
+Back to file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./04_TX_Model/./01_class/01_data/pkg_tx_data.sv'.
+Parsing included file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./04_TX_Model/./01_class/01_data/cls_link_stable_pattern.sv'.
+Back to file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./04_TX_Model/./01_class/01_data/pkg_tx_data.sv'.
+Parsing design file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./06_RTL_Code/linear_interpolator_2d.v'
+Parsing design file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./06_RTL_Code/rtl_top.v'
+Parsing design file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./07_Testbench/tb_top.sv'
+Top Level Modules:
+       tb_top
+TimeScale is 1 ns / 1 ns
+VCS Coverage Metrics Release L-2016.06_Full64 Copyright (c) 1991-2016 by Synopsys Inc.
+***** Warning: +memcbk/-debug_access will not enable toggle coverage on MDAs.  Please use -cm_tgl mda to enable it.
+ + use `+plusarg_save' to bind in runtime plusargs;
+ + use `+plusarg_ignore' to suppress this message.
+Parsing design file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./01_Define/define_dir.sv'
+Parsing design file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./02_Verification/./01_class/pkg_verification.sv'
+Parsing included file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./02_Verification/./01_class/cls_dump_ctrl_f.sv'.
+Back to file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./02_Verification/./01_class/pkg_verification.sv'.
+Parsing included file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./02_Verification/./01_class/cls_dump_ctrl_l.sv'.
+Back to file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./02_Verification/./01_class/pkg_verification.sv'.
+Parsing included file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./02_Verification/./01_class/cls_dump_ppm.sv'.
+Back to file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./02_Verification/./01_class/pkg_verification.sv'.
+Parsing design file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./03_Interface/./itf_data.sv'
+Parsing design file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./04_TX_Model/./01_class/01_data/pkg_tx_data.sv'
+Parsing included file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./04_TX_Model/./01_class/01_data/cls_clock_train_pattern.sv'.
+Back to file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./04_TX_Model/./01_class/01_data/pkg_tx_data.sv'.
+Parsing included file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./04_TX_Model/./01_class/01_data/cls_ctrl_f.sv'.
+Back to file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./04_TX_Model/./01_class/01_data/pkg_tx_data.sv'.
+Parsing included file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./04_TX_Model/./01_class/01_data/cls_ctrl_l.sv'.
+Back to file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./04_TX_Model/./01_class/01_data/pkg_tx_data.sv'.
+Parsing included file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./04_TX_Model/./01_class/01_data/cls_k_symbol.sv'.
+Back to file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./04_TX_Model/./01_class/01_data/pkg_tx_data.sv'.
+Parsing included file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./04_TX_Model/./01_class/01_data/cls_link_stable_pattern.sv'.
+Back to file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./04_TX_Model/./01_class/01_data/pkg_tx_data.sv'.
+Parsing design file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./06_RTL_Code/linear_interpolator_2d.v'
+Parsing design file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./06_RTL_Code/rtl_top.v'
+Parsing design file '/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./07_Testbench/tb_top.sv'
+Top Level Modules:
+       tb_top
+TimeScale is 1 ns / 1 ns
+Starting vcs inline pass...
+6 unique modules to generate
+6 modules and 0 UDP read. 
+	However, due to incremental compilation, no re-compilation is necessary.
+All of 0 modules done
+make[1]: Entering directory '/home/park/PROJECT/02_2D_Interpolator/03_Sim/1_func/231101a/csrc' \
+
+rm -f _csrc*.so pre_vcsobj_*.so share_vcsobj_*.so
+ld -shared  -o .//../simv.daidir//_csrc0.so objs/amcQw_d.o 
+rm -f _csrc0.so
+if [ -x .././simv ]; then chmod -x .././simv; fi
+g++-4.8  -o .././simv   -Wl,-rpath-link=./ -Wl,-rpath='$ORIGIN'/simv.daidir/ -Wl,-rpath=./simv.daidir/ \
+-Wl,-rpath='$ORIGIN'/simv.daidir//scsim.db.dir  -Wl,--no-as-needed -rdynamic   amcQwB.o \
+_prev_archive_1.so _csrc0.so  SIM_l.o  _csrc0.so     rmapats_mop.o rmapats.o rmar.o \
+rmar_llvm_0_1.o rmar_llvm_0_0.o          /home/park/synopsys/vcs_2016.06/linux64/lib/libzerosoft_rt_stubs.so \
+/home/park/synopsys/vcs_2016.06/linux64/lib/libvirsim.so /home/park/synopsys/vcs_2016.06/linux64/lib/liberrorinf.so \
+/home/park/synopsys/vcs_2016.06/linux64/lib/libsnpsmalloc.so    /home/park/synopsys/vcs_2016.06/linux64/lib/libvcsnew.so \
+/home/park/synopsys/vcs_2016.06/linux64/lib/libsimprofile.so /home/park/synopsys/vcs_2016.06/linux64/lib/libreader_common.so \
+/home/park/synopsys/vcs_2016.06/linux64/lib/libBA.a /home/park/synopsys/vcs_2016.06/linux64/lib/libuclinative.so \
+-Wl,-whole-archive /home/park/synopsys/vcs_2016.06/linux64/lib/libvcsucli.so -Wl,-no-whole-archive \
+_vcs_pli_stub_.o   /home/park/synopsys/vcs_2016.06/linux64/lib/vcs_save_restore_new.o \
+/home/park/synopsys/Verdi3_L-2016.06-1/share/PLI/VCS/LINUX64/pli.a -ldl  -lc -lm \
+-lpthread -ldl 
+.././simv up to date
+make[1]: Leaving directory '/home/park/PROJECT/02_2D_Interpolator/03_Sim/1_func/231101a/csrc' \
+
+CPU time: .860 seconds to compile + .451 seconds to elab + .482 seconds to link

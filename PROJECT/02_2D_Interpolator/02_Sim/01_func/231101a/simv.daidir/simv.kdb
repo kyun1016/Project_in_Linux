@@ -1,0 +1,18 @@
+rc file Version 1.0
+
+[Design]
+COMPILE_PATH=/home/park/PROJECT/02_2D_Interpolator/03_Sim/1_func/231101a
+SystemC=FALSE
+UUM=FALSE
+KDB=TRUE
+USE_NOVAS_HOME=FALSE
+COSIM=FALSE
+TOP=tb_top 
+ELAB=TRUE
+SIMV_WRAPPER=FALSE
+[vcs]
+RUN_ELABCOM=\rm -rf /home/park/PROJECT/02_2D_Interpolator/03_Sim/1_func/231101a/./simv.daidir/kdb.elab++ ;unset TURBO_LOG_DIR ; /home/park/synopsys/vcs_2016.06/linux64/bin/elabcom -logdir /home/park/PROJECT/02_2D_Interpolator/03_Sim/1_func/231101a/./simv.daidir/elabcomLog  -simvdaidir /home/park/PROJECT/02_2D_Interpolator/03_Sim/1_func/231101a/./simv.daidir -lib /home/park/PROJECT/02_2D_Interpolator/03_Sim/1_func/231101a/./simv.daidir/work -elab /home/park/PROJECT/02_2D_Interpolator/03_Sim/1_func/231101a/./simv.daidir/kdb -simflow -top 'tb_top '  -Lf work  >& /dev/null 
+
+[Value]
+WREALX=ffff534e50535f58
+WREALZ=ffff534e50535f5a

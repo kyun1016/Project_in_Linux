@@ -1,0 +1,39 @@
+Command: /home/park/PROJECT/02_2D_Interpolator/03_Sim/1_func/231104b/./simv -reportstats -l ./01_log/vcs_sim.log -cm line+cond+fsm+tgl+branch -cm_hier ./02_cc/.
+Chronologic VCS simulator copyright 1991-2018
+Contains Synopsys proprietary information.
+Compiler version O-2018.09-SP2_Full64; Runtime version O-2018.09-SP2_Full64;  Nov  4 03:12 2023
+
+Warning-[MON-RTOPTIGN] Runtime option ignored.
+  Ignoring -cm_hier for runtime. -cm_hier can be passed only at compile 
+  time.No action will be taken for this option at runtime.
+  Please refer to VCS documentation for more information.
+
+*Verdi* Loading libsscore_vcs201809.so
+FSDB Dumper for VCS, Release Verdi_O-2018.09-SP2, Linux x86_64/64bit, 02/21/2019
+(C) 1996 - 2019 by Synopsys, Inc.
+*Verdi* : Create FSDB file './03_fsdb/waveform.fsdb'
+*Verdi* : Begin traversing the scope (tb_top), layer (0).
+*Verdi* : End of traversing.
+$finish called from file "/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./07_Testbench/tb_top.sv", line 43.
+$finish at simulation time                 1209
+
+---------------------------------------------------------------------------
+VCS Coverage Metrics: during simulation line, cond, FSM, branch, tgl was monitored
+---------------------------------------------------------------------------
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 1209 ns
+
+Simulation Performance Summary
+==============================
+Simulation started at :  Sat Nov  4 03:12:01 2023
+Elapsed Time          :  1 sec
+CPU Time              :  0.3 sec
+Virtual memory size   :  318.1 MB
+Resident set size     :  118.9 MB
+Shared memory size    :  3.5 MB
+Private memory size   :  115.4 MB
+Major page faults     :  0
+Machine name          :  park-VirtualBox
+==============================
+
+Sat Nov  4 03:12:01 2023

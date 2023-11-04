@@ -1,0 +1,42 @@
+Command: ./simv -reportstats -l ./01_log/vcs_sim.log -cm line+cond+fsm+tgl+branch -cm_hier ./02_cc/.
+Chronologic VCS simulator copyright 1991-2016
+Contains Synopsys proprietary information.
+Compiler version L-2016.06_Full64; Runtime version L-2016.06_Full64;  Nov  1 23:26 2023
+
+Warning-[MON-RTOPTIGN] Runtime option ignored.
+  Ignoring -cm_hier for runtime. -cm_hier can be passed only at compile 
+  time.No action will be taken for this option at runtime.
+  Please refer to VCS documentation for more information.
+
+*Verdi3* Loading libsscore_vcs201606.so
+*Verdi3* : FSDB_GATE is set.
+*Verdi3* : FSDB_RTL is set.
+*Verdi3* : Enable Parallel Dumping.
+FSDB Dumper for VCS, Release Verdi3_L-2016.06-1, Linux x86_64/64bit, 07/10/2016
+(C) 1996 - 2016 by Synopsys, Inc.
+*Verdi3* FSDB WARNING: The FSDB file already exists. Overwriting the FSDB file may crash the programs that are using this file.
+*Verdi3* : Create FSDB file './03_fsdb/waveform.fsdb'
+*Verdi3* : Begin traversing the scope (tb_top), layer (0).
+*Verdi3* : End of traversing.
+$finish called from file "/home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./07_Testbench/tb_top.sv", line 43.
+$finish at simulation time                 1209
+
+---------------------------------------------------------------------------
+VCS Coverage Metrics: during simulation line, cond, FSM, branch, tgl was monitored
+---------------------------------------------------------------------------
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 1209 ns
+
+Simulation Performance Summary
+==============================
+Simulation started at :  Wed Nov  1 23:26:44 2023
+Elapsed Time          :  2 sec
+CPU Time              :  0.3 sec
+Virtual memory size   :  267.0 MB
+Resident set size     :  99.2 MB
+Shared memory size    :  3.4 MB
+Private memory size   :  95.8 MB
+Major page faults     :  0
+==============================
+
+Wed Nov  1 23:26:45 2023

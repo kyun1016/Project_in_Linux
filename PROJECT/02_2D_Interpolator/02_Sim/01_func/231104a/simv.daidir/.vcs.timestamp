@@ -1,0 +1,170 @@
+21       
+0 cls_dump_ctrl_f.sv
+0 /home/park/synopsys/VCS_O-2018.09-SP2/etc/systemverilog/cls_dump_ctrl_f.sv
+0 cls_dump_ctrl_l.sv
+0 /home/park/synopsys/VCS_O-2018.09-SP2/etc/systemverilog/cls_dump_ctrl_l.sv
+0 cls_dump_ppm.sv
+0 /home/park/synopsys/VCS_O-2018.09-SP2/etc/systemverilog/cls_dump_ppm.sv
+0 cls_clock_train_pattern.sv
+0 /home/park/synopsys/VCS_O-2018.09-SP2/etc/systemverilog/cls_clock_train_pattern.sv
+0 /home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./02_Verification/./01_class/cls_clock_train_pattern.sv
+0 cls_ctrl_f.sv
+0 /home/park/synopsys/VCS_O-2018.09-SP2/etc/systemverilog/cls_ctrl_f.sv
+0 /home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./02_Verification/./01_class/cls_ctrl_f.sv
+0 cls_ctrl_l.sv
+0 /home/park/synopsys/VCS_O-2018.09-SP2/etc/systemverilog/cls_ctrl_l.sv
+0 /home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./02_Verification/./01_class/cls_ctrl_l.sv
+0 cls_k_symbol.sv
+0 /home/park/synopsys/VCS_O-2018.09-SP2/etc/systemverilog/cls_k_symbol.sv
+0 /home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./02_Verification/./01_class/cls_k_symbol.sv
+0 cls_link_stable_pattern.sv
+0 /home/park/synopsys/VCS_O-2018.09-SP2/etc/systemverilog/cls_link_stable_pattern.sv
+0 /home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./02_Verification/./01_class/cls_link_stable_pattern.sv
+39
+
++itf+/home/park/synopsys/VCS_O-2018.09-SP2/linux64/lib/vcsdp_lite.tab
++vcsd1
++vpi
+-F /home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/list_top.f
+-Mamsrun=
+-Masflags=
+-Mcc=gcc-4.8
+-Mcfl= -pipe -fPIC -O -I/home/park/synopsys/VCS_O-2018.09-SP2/include
+-Mcplusplus=g++-4.8
+-Mcrt0=
+-Mcrtn=
+-Mcsrc=
+-Mexternalobj=
+-Mldflags= -Wl,--no-as-needed -rdynamic
+-Mobjects= /home/park/synopsys/VCS_O-2018.09-SP2/linux64/lib/libvirsim.so /home/park/synopsys/VCS_O-2018.09-SP2/linux64/lib/liberrorinf.so /home/park/synopsys/VCS_O-2018.09-SP2/linux64/lib/libsnpsmalloc.so /home/park/synopsys/VCS_O-2018.09-SP2/linux64/lib/libvfs.so
+-Mout=./simv
+-Msaverestoreobj=/home/park/synopsys/VCS_O-2018.09-SP2/linux64/lib/vcs_save_restore_new.o
+-Msyslibs=/home/park/synopsys/Verdi_O-2018.09-SP2/share/PLI/VCS/LINUX64/pli.a -ldl
+-Mvcsaceobjs=
+-Mxcflags= -pipe -fPIC -I/home/park/synopsys/VCS_O-2018.09-SP2/include
+-P
+-Xufe=2steps
+-cm
+-debug_access+all
+-fsdb
+-full64
+-gen_obj
+-kdb
+-l
+-lca
+-o ./simv
+-picarchive
+-sverilog
+-timescale=1ns/1ns
+./01_log/fsim.log
+/home/park/synopsys/VCS_O-2018.09-SP2/linux64/bin/vcs1
+/home/park/synopsys/Verdi_O-2018.09-SP2/share/PLI/VCS/LINUX64/verdi.tab
+line+cond+fsm+tgl+branch
+72
+sysc_uni_pwd=/home/park/PROJECT/02_2D_Interpolator/03_Sim/1_func/231104a
+XMODIFIERS=@im=ibus
+XDG_SESSION_TYPE=x11
+XDG_SESSION_DESKTOP=ubuntu
+XDG_SESSION_CLASS=user
+XDG_RUNTIME_DIR=/run/user/1000
+XDG_MENU_PREFIX=gnome-
+XDG_DATA_DIRS=/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
+XDG_CURRENT_DESKTOP=ubuntu:GNOME
+XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg
+XAUTHORITY=/run/user/1000/gdm/Xauthority
+WINDOWPATH=2
+VTE_VERSION=6003
+VMR_MODE_FLAG=64
+VERDI_HOME=/home/park/synopsys/Verdi_O-2018.09-SP2
+VCS_MODE_FLAG=64
+VCS_LOG_FILE=./01_log/fsim.log
+VCS_LCAMSG_PRINT_OFF=1
+VCS_HOME=/home/park/synopsys/VCS_O-2018.09-SP2
+VCS_DEPTH=0
+VCS_ARG_ADDED_FOR_TMP=1
+VCS_ARCH_OVERRIDE=linux
+VCS_ARCH=linux64
+USERNAME=park
+UNAME=/bin/uname
+TOOL_HOME=/home/park/synopsys/VCS_O-2018.09-SP2/linux64
+SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
+SSH_AGENT_PID=1495
+SPYGLASS_HOME=/home/park/synopsys/SpyGlass_L-2016-06/SpyGlass-L2016.06/SPYGLASS_HOME/
+SPYGLASS_DC_PATH=/home/park/synopsys/DC_L-2016.03-SP1
+SNPS_VERDI_INTERNAL_LP_XML_NEW_FLOW=1
+SESSION_MANAGER=local/park-VirtualBox:@/tmp/.ICE-unix/1538,unix/park-VirtualBox:/tmp/.ICE-unix/1538
+SCRNAME=vcs
+SCRIPT_NAME=vcs
+QT_IM_MODULE=ibus
+QT_ACCESSIBILITY=1
+PAPERSIZE=letter
+OVA_UUM=0
+NOVAS_HOME=/home/park/synopsys/Verdi_O-2018.09-SP2
+MFLAGS=
+MANAGERPID=1280
+MAKE_TERMOUT=/dev/pts/1
+MAKE_TERMERR=/dev/pts/1
+MAKELEVEL=1
+MAKEFLAGS=
+LESSOPEN=| /usr/bin/lesspipe %s
+LESSCLOSE=/usr/bin/lesspipe %s %s
+LC_TIME=en_US.UTF-8
+LC_TELEPHONE=en_US.UTF-8
+LC_PAPER=en_US.UTF-8
+LC_NUMERIC=en_US.UTF-8
+LC_NAME=en_US.UTF-8
+LC_MONETARY=en_US.UTF-8
+LC_MEASUREMENT=en_US.UTF-8
+LC_IDENTIFICATION=en_US.UTF-8
+LC_ALL=C
+LC_ADDRESS=en_US.UTF-8
+JOURNAL_STREAM=8:33826
+INVOCATION_ID=69ec0f403e5e4234875b578478021beb
+IM_CONFIG_PHASE=1
+GTK_MODULES=gail:atk-bridge
+GPG_AGENT_INFO=/run/user/1000/gnupg/S.gpg-agent:0:1
+GNOME_TERMINAL_SERVICE=:1.90
+GNOME_TERMINAL_SCREEN=/org/gnome/Terminal/screen/e435970e_85b8_4878_8f84_718b8fbe36c7
+GNOME_SHELL_SESSION_MODE=ubuntu
+GNOME_DESKTOP_SESSION_ID=this-is-deprecated
+GDMSESSION=ubuntu
+DESKTOP_SESSION=ubuntu
+DBUS_STARTER_BUS_TYPE=session
+DBUS_STARTER_ADDRESS=unix:path=/run/user/1000/bus,guid=f0ace8dad71743fcf6d5615365452932
+DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus,guid=f0ace8dad71743fcf6d5615365452932
+COLORTERM=truecolor
+0
+26
+1698755513 /home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./04_TX_Model/./01_class/01_data/cls_link_stable_pattern.sv
+1698755513 /home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./04_TX_Model/./01_class/01_data/cls_k_symbol.sv
+1698755513 /home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./04_TX_Model/./01_class/01_data/cls_ctrl_l.sv
+1698755513 /home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./04_TX_Model/./01_class/01_data/cls_ctrl_f.sv
+1698755513 /home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./04_TX_Model/./01_class/01_data/cls_clock_train_pattern.sv
+1698755513 /home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./02_Verification/./01_class/cls_dump_ppm.sv
+1698755513 /home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./02_Verification/./01_class/cls_dump_ctrl_l.sv
+1698755513 /home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./02_Verification/./01_class/cls_dump_ctrl_f.sv
+1698846001 /home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./07_Testbench/tb_top.sv
+1698845597 /home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./06_RTL_Code/rtl_top.v
+1698848091 /home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./06_RTL_Code/linear_interpolator_2d.v
+1698755513 /home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./04_TX_Model/./01_class/01_data/pkg_tx_data.sv
+1698845690 /home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./03_Interface/./itf_data.sv
+1698755513 /home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./02_Verification/./01_class/pkg_verification.sv
+1698755513 /home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./01_Define/define_dir.sv
+1551421444 /home/park/synopsys/VCS_O-2018.09-SP2/include/cm_vcsd.tab
+1698755514 /home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./07_Testbench/list_testbench.f
+1698755869 /home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./06_RTL_Code/list_rtl.f
+1698755514 /home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./05_RX_Model/list_rx_model.f
+1698755513 /home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./04_TX_Model/list_tx_model.f
+1698755513 /home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./03_Interface/list_interface.f
+1698755513 /home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./02_Verification/list_verification.f
+1698755513 /home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/./01_Define/list_define.f
+1698755514 /home/park/PROJECT/02_2D_Interpolator/02_Env/01_Source_Code/list_top.f
+1550753332 /home/park/synopsys/Verdi_O-2018.09-SP2/share/PLI/VCS/LINUX64/verdi.tab
+1551421246 /home/park/synopsys/VCS_O-2018.09-SP2/linux64/lib/vcsdp_lite.tab
+4
+1551422344 /home/park/synopsys/VCS_O-2018.09-SP2/linux64/lib/libvirsim.so
+1551421792 /home/park/synopsys/VCS_O-2018.09-SP2/linux64/lib/liberrorinf.so
+1551421768 /home/park/synopsys/VCS_O-2018.09-SP2/linux64/lib/libsnpsmalloc.so
+1551421789 /home/park/synopsys/VCS_O-2018.09-SP2/linux64/lib/libvfs.so
+1699034628 ./simv.daidir
+-1 partitionlib
