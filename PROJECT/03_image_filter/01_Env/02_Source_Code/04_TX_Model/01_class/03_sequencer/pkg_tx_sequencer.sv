@@ -1,6 +1,6 @@
-package pkg_verification
-  `include "cls_dump_ctrl_f.sv"
-  `include "cls_dump_ctrl_l.sv"
-  `include "cls_dump_ppm.sv"
+// ../../list_tx_model.f
+
+package pkg_tx_sequencer;
+  `include "cls_sequencer.sv"
 endpackage
 

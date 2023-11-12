@@ -29,9 +29,8 @@ class cls_image;
   end
   endfunction
 
-  task get_pixel(
+  function void get_pixel(
   );
-  begin
     integer maxValue;
 
     maxValue = (1 << m_itf.image_bit_depth) - 1;
@@ -114,6 +113,5 @@ class cls_image;
         m_itf.b = maxValue;
       end
     endcase
-  end
-  endtask
+  endfunction
 endclass

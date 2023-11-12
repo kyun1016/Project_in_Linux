@@ -136,7 +136,9 @@ module filter_top_5x5
     .o_y41        (w_y41        ),
     .o_y42        (w_y42        ),
     .o_y43        (w_y43        ),
-    .o_y44        (w_y44        )
+    .o_y44        (w_y44        ),
+    .o_u          (o_u          ),
+    .o_v          (o_v          )
   );
   filter_conv_5x5 u_conv (
     .clk     (clk      ),

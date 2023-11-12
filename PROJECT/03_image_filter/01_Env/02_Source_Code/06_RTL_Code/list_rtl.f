@@ -3,7 +3,7 @@
 
 apb_slave.v
 mat_mul_3x3.v
-memory_1920x8.v
+simple_dual_one_clock.v
 filter_data_align_5x5.v
 filter_conv_5x5.v
 filter_fsm.v

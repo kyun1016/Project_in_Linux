@@ -253,35 +253,35 @@ module apb_slave
     end
     else if(i_PSEL & i_PWRITE & i_PENABLE) begin
       case(i_PADDR)
-        CSC_COEF0      : {2'b0, o_csc_coef02, o_csc_coef01, o_csc_coef00}             <= i_PWDATA;
-        CSC_COEF1      : {2'b0, o_csc_coef12, o_csc_coef11, o_csc_coef10}             <= i_PWDATA;
-        CSC_COEF2      : {2'b0, o_csc_coef22, o_csc_coef21, o_csc_coef20}             <= i_PWDATA;
-        CSC_BIAS       : {8'b0, o_csc_bias2 , o_csc_bias1 , o_csc_bias0 }             <= i_PWDATA;
-        ICSC_COEF0     : {2'b0, o_icsc_coef02, o_icsc_coef01, o_icsc_coef00}          <= i_PWDATA;
-        ICSC_COEF1     : {2'b0, o_icsc_coef12, o_icsc_coef11, o_icsc_coef10}          <= i_PWDATA;
-        ICSC_COEF2     : {2'b0, o_icsc_coef22, o_icsc_coef21, o_icsc_coef20}          <= i_PWDATA;
-        ICSC_BIAS      : {8'b0, o_icsc_bias2 , o_icsc_bias1 , o_icsc_bias0 }          <= i_PWDATA;
-        FILTER1_COEF00 : {2'b0, o_filter1_coef02, o_filter1_coef01, o_filter1_coef00} <= i_PWDATA;
-        FILTER1_COEF03 : {2'b0, 10'b0           , o_filter1_coef04, o_filter1_coef03} <= i_PWDATA;
-        FILTER1_COEF10 : {2'b0, o_filter1_coef12, o_filter1_coef11, o_filter1_coef10} <= i_PWDATA;
-        FILTER1_COEF13 : {2'b0, 10'b0           , o_filter1_coef14, o_filter1_coef13} <= i_PWDATA;
-        FILTER1_COEF20 : {2'b0, o_filter1_coef22, o_filter1_coef21, o_filter1_coef20} <= i_PWDATA;
-        FILTER1_COEF23 : {2'b0, 10'b0           , o_filter1_coef24, o_filter1_coef23} <= i_PWDATA;
-        FILTER1_COEF30 : {2'b0, o_filter1_coef32, o_filter1_coef31, o_filter1_coef30} <= i_PWDATA;
-        FILTER1_COEF33 : {2'b0, 10'b0           , o_filter1_coef34, o_filter1_coef33} <= i_PWDATA;
-        FILTER1_COEF40 : {2'b0, o_filter1_coef42, o_filter1_coef41, o_filter1_coef40} <= i_PWDATA;
-        FILTER1_COEF43 : {2'b0, 10'b0           , o_filter1_coef44, o_filter1_coef43} <= i_PWDATA;
-        FILTER2_COEF00 : {2'b0, o_filter2_coef02, o_filter2_coef01, o_filter2_coef00} <= i_PWDATA;
-        FILTER2_COEF03 : {2'b0, 10'b0           , o_filter2_coef04, o_filter2_coef03} <= i_PWDATA;
-        FILTER2_COEF10 : {2'b0, o_filter2_coef12, o_filter2_coef11, o_filter2_coef10} <= i_PWDATA;
-        FILTER2_COEF13 : {2'b0, 10'b0           , o_filter2_coef14, o_filter2_coef13} <= i_PWDATA;
-        FILTER2_COEF20 : {2'b0, o_filter2_coef22, o_filter2_coef21, o_filter2_coef20} <= i_PWDATA;
-        FILTER2_COEF23 : {2'b0, 10'b0           , o_filter2_coef24, o_filter2_coef23} <= i_PWDATA;
-        FILTER2_COEF30 : {2'b0, o_filter2_coef32, o_filter2_coef31, o_filter2_coef30} <= i_PWDATA;
-        FILTER2_COEF33 : {2'b0, 10'b0           , o_filter2_coef34, o_filter2_coef33} <= i_PWDATA;
-        FILTER2_COEF40 : {2'b0, o_filter2_coef42, o_filter2_coef41, o_filter2_coef40} <= i_PWDATA;
-        FILTER2_COEF43 : {2'b0, 10'b0           , o_filter2_coef44, o_filter2_coef43} <= i_PWDATA;
-        BYPASS         : {28'b0, o_icsc_bypass, o_filter2_bypass, o_filter1_bypass, o_csc_bypass} <= i_PWDATA;
+        CSC_COEF0      : {o_csc_coef02, o_csc_coef01, o_csc_coef00}             <= i_PWDATA;
+        CSC_COEF1      : {o_csc_coef12, o_csc_coef11, o_csc_coef10}             <= i_PWDATA;
+        CSC_COEF2      : {o_csc_coef22, o_csc_coef21, o_csc_coef20}             <= i_PWDATA;
+        CSC_BIAS       : {o_csc_bias2 , o_csc_bias1 , o_csc_bias0 }             <= i_PWDATA;
+        ICSC_COEF0     : {o_icsc_coef02, o_icsc_coef01, o_icsc_coef00}          <= i_PWDATA;
+        ICSC_COEF1     : {o_icsc_coef12, o_icsc_coef11, o_icsc_coef10}          <= i_PWDATA;
+        ICSC_COEF2     : {o_icsc_coef22, o_icsc_coef21, o_icsc_coef20}          <= i_PWDATA;
+        ICSC_BIAS      : {o_icsc_bias2 , o_icsc_bias1 , o_icsc_bias0 }          <= i_PWDATA;
+        FILTER1_COEF00 : {o_filter1_coef02, o_filter1_coef01, o_filter1_coef00} <= i_PWDATA;
+        FILTER1_COEF03 : {o_filter1_coef04, o_filter1_coef03}                   <= i_PWDATA;
+        FILTER1_COEF10 : {o_filter1_coef12, o_filter1_coef11, o_filter1_coef10} <= i_PWDATA;
+        FILTER1_COEF13 : {o_filter1_coef14, o_filter1_coef13}                   <= i_PWDATA;
+        FILTER1_COEF20 : {o_filter1_coef22, o_filter1_coef21, o_filter1_coef20} <= i_PWDATA;
+        FILTER1_COEF23 : {o_filter1_coef24, o_filter1_coef23}                   <= i_PWDATA;
+        FILTER1_COEF30 : {o_filter1_coef32, o_filter1_coef31, o_filter1_coef30} <= i_PWDATA;
+        FILTER1_COEF33 : {o_filter1_coef34, o_filter1_coef33}                   <= i_PWDATA;
+        FILTER1_COEF40 : {o_filter1_coef42, o_filter1_coef41, o_filter1_coef40} <= i_PWDATA;
+        FILTER1_COEF43 : {o_filter1_coef44, o_filter1_coef43}                   <= i_PWDATA;
+        FILTER2_COEF00 : {o_filter2_coef02, o_filter2_coef01, o_filter2_coef00} <= i_PWDATA;
+        FILTER2_COEF03 : {o_filter2_coef04, o_filter2_coef03}                   <= i_PWDATA;
+        FILTER2_COEF10 : {o_filter2_coef12, o_filter2_coef11, o_filter2_coef10} <= i_PWDATA;
+        FILTER2_COEF13 : {o_filter2_coef14, o_filter2_coef13}                   <= i_PWDATA;
+        FILTER2_COEF20 : {o_filter2_coef22, o_filter2_coef21, o_filter2_coef20} <= i_PWDATA;
+        FILTER2_COEF23 : {o_filter2_coef24, o_filter2_coef23}                   <= i_PWDATA;
+        FILTER2_COEF30 : {o_filter2_coef32, o_filter2_coef31, o_filter2_coef30} <= i_PWDATA;
+        FILTER2_COEF33 : {o_filter2_coef34, o_filter2_coef33}                   <= i_PWDATA;
+        FILTER2_COEF40 : {o_filter2_coef42, o_filter2_coef41, o_filter2_coef40} <= i_PWDATA;
+        FILTER2_COEF43 : {o_filter2_coef44, o_filter2_coef43}                   <= i_PWDATA;
+        BYPASS         : { o_icsc_bypass, o_filter2_bypass, o_filter1_bypass, o_csc_bypass} <= i_PWDATA;
       endcase
     end
   end

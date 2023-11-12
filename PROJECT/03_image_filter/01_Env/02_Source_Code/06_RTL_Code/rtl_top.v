@@ -4,10 +4,7 @@ module rtl_top
 #(
   parameter SEL_WIDTH       = 4   , 
   parameter ADDR_WIDTH      = 10  , // maximum width 32 bits
-  parameter DATA_WIDTH      = 8   , // 8/16/32 bits wide
-  parameter USER_REQ_WIDTH  = 4   , // maximum width of 128 bits
-  parameter USER_DATA_WIDTH = 4   , // maximum width of DATA_WIDTH/2
-  parameter USER_RESP_WIDTH = 4     // maximum width of 16 bits
+  parameter DATA_WIDTH      = 8     // 8/16/32 bits wide
 )
 (
   input                   clk             ,
@@ -117,7 +114,7 @@ module rtl_top
   apb_slave u_reg_weight
   (
     .clk             (clk_apb         ), //                  
-    .rstn            (rstn_abp        ), //                  
+    .rstn            (rstn_apb        ), //                  
     .i_PADDR         (i_apb_paddr     ), // [ADDR_WIDTH-1:0] 
     .i_PSEL          (i_apb_psel      ), //                  
     .i_PENABLE       (i_apb_penable   ), //                  
@@ -372,8 +369,8 @@ module rtl_top
     .o_vs     (o_vs         ),
     .o_hs     (o_hs         ),
     .o_de     (o_de         ),
-    .o_y0     (o_y          ),
-    .o_y1     (o_u          ),
-    .o_y2     (o_v          )
+    .o_y0     (o_r          ),
+    .o_y1     (o_g          ),
+    .o_y2     (o_b          )
   );
 endmodule
