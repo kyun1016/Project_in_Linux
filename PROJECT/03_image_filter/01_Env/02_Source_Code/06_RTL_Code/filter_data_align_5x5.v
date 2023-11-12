@@ -2,57 +2,50 @@
 
 module filter_data_align_5x5
 #(
-  parameter INPUT_DATA_WIDTH  = 8,
-  parameter OUTPUT_DATA_WIDTH = 8,
-  parameter CSC_WIDTH         = 8,
-  parameter BIAS_WIDTH        = 8
+  parameter DATA_WIDTH = 8
 )
 (
-  input                                     clk           ,
-  input                                     rstn          ,
-
-  input                                     i_en          ,
-  input      signed [INPUT_DATA_WIDTH-1:0]  i_x           ,
-  input             [1:0]                   i_sel_ln      ,
-  input             [1:0]                   i_sel_px      ,
-  input             [2:0]                   i_case_sel_ln ,
-  input             [2:0]                   i_case_sel_px ,
-  input             [10:0]                  i_addr_ln     ,
-  input             [10:0]                  i_addr_px     ,
-  output reg signed [OUTPUT_DATA_WIDTH-1:0] o_y00         ,
-  output reg signed [OUTPUT_DATA_WIDTH-1:0] o_y01         ,
-  output reg signed [OUTPUT_DATA_WIDTH-1:0] o_y02         ,
-  output reg signed [OUTPUT_DATA_WIDTH-1:0] o_y03         ,
-  output reg signed [OUTPUT_DATA_WIDTH-1:0] o_y04         ,
-  output reg signed [OUTPUT_DATA_WIDTH-1:0] o_y10         ,
-  output reg signed [OUTPUT_DATA_WIDTH-1:0] o_y11         ,
-  output reg signed [OUTPUT_DATA_WIDTH-1:0] o_y12         ,
-  output reg signed [OUTPUT_DATA_WIDTH-1:0] o_y13         ,
-  output reg signed [OUTPUT_DATA_WIDTH-1:0] o_y14         ,
-  output reg signed [OUTPUT_DATA_WIDTH-1:0] o_y20         ,
-  output reg signed [OUTPUT_DATA_WIDTH-1:0] o_y21         ,
-  output reg signed [OUTPUT_DATA_WIDTH-1:0] o_y22         ,
-  output reg signed [OUTPUT_DATA_WIDTH-1:0] o_y23         ,
-  output reg signed [OUTPUT_DATA_WIDTH-1:0] o_y24         ,
-  output reg signed [OUTPUT_DATA_WIDTH-1:0] o_y30         ,
-  output reg signed [OUTPUT_DATA_WIDTH-1:0] o_y31         ,
-  output reg signed [OUTPUT_DATA_WIDTH-1:0] o_y32         ,
-  output reg signed [OUTPUT_DATA_WIDTH-1:0] o_y33         ,
-  output reg signed [OUTPUT_DATA_WIDTH-1:0] o_y34         ,
-  output reg signed [OUTPUT_DATA_WIDTH-1:0] o_y40         ,
-  output reg signed [OUTPUT_DATA_WIDTH-1:0] o_y41         ,
-  output reg signed [OUTPUT_DATA_WIDTH-1:0] o_y42         ,
-  output reg signed [OUTPUT_DATA_WIDTH-1:0] o_y43         ,
-  output reg signed [OUTPUT_DATA_WIDTH-1:0] o_y44         
+  input                       clk           ,
+  input                       rstn          ,
+  input      [DATA_WIDTH-1:0] i_y           ,
+  input      [DATA_WIDTH-1:0] i_u           ,
+  input      [DATA_WIDTH-1:0] i_v           ,
+  input      [11:0]           i_mem_addr    ,
+  input      [3:0]            i_mem_wen     ,
+  input                       i_mem_ren     ,
+  input      [3:0]            i_conv_wen    ,
+  input                       i_conv_ren    ,
+  input      [2:0]            i_conv_ln_sel ,
+  input      [2:0]            i_conv_px_sel ,
+  output reg [DATA_WIDTH-1:0] o_y00         ,
+  output reg [DATA_WIDTH-1:0] o_y01         ,
+  output reg [DATA_WIDTH-1:0] o_y02         ,
+  output reg [DATA_WIDTH-1:0] o_y03         ,
+  output reg [DATA_WIDTH-1:0] o_y04         ,
+  output reg [DATA_WIDTH-1:0] o_y10         ,
+  output reg [DATA_WIDTH-1:0] o_y11         ,
+  output reg [DATA_WIDTH-1:0] o_y12         ,
+  output reg [DATA_WIDTH-1:0] o_y13         ,
+  output reg [DATA_WIDTH-1:0] o_y14         ,
+  output reg [DATA_WIDTH-1:0] o_y20         ,
+  output reg [DATA_WIDTH-1:0] o_y21         ,
+  output reg [DATA_WIDTH-1:0] o_y22         ,
+  output reg [DATA_WIDTH-1:0] o_y23         ,
+  output reg [DATA_WIDTH-1:0] o_y24         ,
+  output reg [DATA_WIDTH-1:0] o_y30         ,
+  output reg [DATA_WIDTH-1:0] o_y31         ,
+  output reg [DATA_WIDTH-1:0] o_y32         ,
+  output reg [DATA_WIDTH-1:0] o_y33         ,
+  output reg [DATA_WIDTH-1:0] o_y34         ,
+  output reg [DATA_WIDTH-1:0] o_y40         ,
+  output reg [DATA_WIDTH-1:0] o_y41         ,
+  output reg [DATA_WIDTH-1:0] o_y42         ,
+  output reg [DATA_WIDTH-1:0] o_y43         ,
+  output reg [DATA_WIDTH-1:0] o_y44         
 );
   //============================================================
   // Part 1. Select Memory
   //============================================================
-  wire [7:0] w_x0 = i_sel_ln == 2'b00 ? i_x : 0;
-  wire [7:0] w_x1 = i_sel_ln == 2'b01 ? i_x : 0;
-  wire [7:0] w_x2 = i_sel_ln == 2'b10 ? i_x : 0;
-  wire [7:0] w_x3 = i_sel_ln == 2'b11 ? i_x : 0;
-
   wire [7:0] w_data_ln_pre0;
   wire [7:0] w_data_ln_pre1;
   wire [7:0] w_data_ln_pre2;
@@ -60,33 +53,33 @@ module filter_data_align_5x5
   memory_1920x8 u_mem0(
     .clk    (clk           ),
     .rstn   (rstn          ),
-    .i_en   (i_en          ),
-    .i_addr (i_addr_ln     ),
-    .i_data (w_x0          ),
+    .i_en   (i_mem_wen[0]  ),
+    .i_addr (i_mem_addr    ),
+    .i_data (i_y           ),
     .o_data (w_data_ln_pre0)
   );
   memory_1920x8 u_mem1(
     .clk    (clk           ),
     .rstn   (rstn          ),
-    .i_en   (i_en          ),
-    .i_addr (i_addr_ln     ),
-    .i_data (w_x1          ),
+    .i_en   (i_mem_wen[1]  ),
+    .i_addr (i_mem_addr    ),
+    .i_data (i_y           ),
     .o_data (w_data_ln_pre1)
   );
   memory_1920x8 u_mem2(
     .clk    (clk           ),
     .rstn   (rstn          ),
-    .i_en   (i_en          ),
-    .i_addr (i_addr_ln     ),
-    .i_data (w_x2          ),
+    .i_en   (i_mem_wen[2]  ),
+    .i_addr (i_mem_addr    ),
+    .i_data (i_y           ),
     .o_data (w_data_ln_pre2)
   );
   memory_1920x8 u_mem3(
     .clk    (clk           ),
     .rstn   (rstn          ),
-    .i_en   (i_en          ),
-    .i_addr (i_addr_ln     ),
-    .i_data (w_x3          ),
+    .i_en   (i_mem_wen[3]  ),
+    .i_addr (i_mem_addr    ),
+    .i_data (i_y           ),
     .o_data (w_data_ln_pre3)
   );
 
@@ -99,44 +92,44 @@ module filter_data_align_5x5
   reg [7:0] w_data_ln3;
   reg [7:0] w_data_ln4;
   always @(*) begin
-    case(i_case_sel_ln)
+    case(i_conv_ln_sel)
       3'b000 : w_data_ln0 = w_data_ln_pre0;
       3'b001 : w_data_ln0 = w_data_ln_pre1;
       3'b010 : w_data_ln0 = w_data_ln_pre2;
       3'b011 : w_data_ln0 = w_data_ln_pre3;
-      default: w_data_ln0 = i_x;
+      default: w_data_ln0 = i_y;
     endcase
   end
   always @(*) begin
-    case(i_case_sel_ln)
+    case(i_conv_ln_sel)
       3'b000 : w_data_ln1 = w_data_ln_pre1;
       3'b001 : w_data_ln1 = w_data_ln_pre2;
       3'b010 : w_data_ln1 = w_data_ln_pre3;
-      3'b011 : w_data_ln1 = i_x;
+      3'b011 : w_data_ln1 = i_y;
       default: w_data_ln1 = w_data_ln_pre0;
     endcase
   end
   always @(*) begin
-    case(i_case_sel_ln)
+    case(i_conv_ln_sel)
       3'b000 : w_data_ln2 = w_data_ln_pre2;
       3'b001 : w_data_ln2 = w_data_ln_pre3;
-      3'b010 : w_data_ln2 = i_x; 
+      3'b010 : w_data_ln2 = i_y; 
       3'b011 : w_data_ln2 = w_data_ln_pre0;
       default: w_data_ln2 = w_data_ln_pre1;
     endcase
   end
   always @(*) begin
-    case(i_case_sel_ln)
+    case(i_conv_ln_sel)
       3'b000 : w_data_ln3 = w_data_ln_pre3;
-      3'b001 : w_data_ln3 = i_x;
+      3'b001 : w_data_ln3 = i_y;
       3'b010 : w_data_ln3 = w_data_ln_pre0;
       3'b011 : w_data_ln3 = w_data_ln_pre1;
       default: w_data_ln3 = w_data_ln_pre2;
     endcase
   end
   always @(*) begin
-    case(i_case_sel_ln)
-      3'b000 : w_data_ln4 = i_x;
+    case(i_conv_ln_sel)
+      3'b000 : w_data_ln4 = i_y;
       3'b001 : w_data_ln4 = w_data_ln_pre0;
       3'b010 : w_data_ln4 = w_data_ln_pre1;
       3'b011 : w_data_ln4 = w_data_ln_pre2;
@@ -177,7 +170,7 @@ module filter_data_align_5x5
       r_data_px_pre30 <= 0;
       r_data_px_pre40 <= 0;
     end
-    else if(i_en & (i_sel_px == 2'b00)) begin
+    else if(i_conv_wen[0]) begin
       r_data_px_pre00 <= w_data_ln0;
       r_data_px_pre10 <= w_data_ln1;
       r_data_px_pre20 <= w_data_ln2;
@@ -193,7 +186,7 @@ module filter_data_align_5x5
       r_data_px_pre31 <= 0;
       r_data_px_pre41 <= 0;
     end
-    else if(i_en & (i_sel_px == 2'b01)) begin
+    else if(i_conv_wen[1]) begin
       r_data_px_pre01 <= w_data_ln0;
       r_data_px_pre11 <= w_data_ln1;
       r_data_px_pre21 <= w_data_ln2;
@@ -209,7 +202,7 @@ module filter_data_align_5x5
       r_data_px_pre32 <= 0;
       r_data_px_pre42 <= 0;
     end
-    else if(i_en & (i_sel_px == 2'b10)) begin
+    else if(i_conv_wen[2]) begin
       r_data_px_pre02 <= w_data_ln0;
       r_data_px_pre12 <= w_data_ln1;
       r_data_px_pre22 <= w_data_ln2;
@@ -225,7 +218,7 @@ module filter_data_align_5x5
       r_data_px_pre33 <= 0;
       r_data_px_pre43 <= 0;
     end
-    else if(i_en & (i_sel_px == 2'b11)) begin
+    else if(i_conv_wen[3]) begin
       r_data_px_pre03 <= w_data_ln0;
       r_data_px_pre13 <= w_data_ln1;
       r_data_px_pre23 <= w_data_ln2;
@@ -234,7 +227,7 @@ module filter_data_align_5x5
     end
   end
   always @(*) begin
-    case(i_case_sel_px)
+    case(i_conv_px_sel)
       3'b000 : o_y00 = r_data_px_pre00;
       3'b001 : o_y00 = r_data_px_pre01;
       3'b010 : o_y00 = r_data_px_pre02;
@@ -243,7 +236,7 @@ module filter_data_align_5x5
     endcase
   end
   always @(*) begin
-    case(i_case_sel_px)
+    case(i_conv_px_sel)
       3'b000 : o_y01 = r_data_px_pre01;
       3'b001 : o_y01 = r_data_px_pre02;
       3'b010 : o_y01 = r_data_px_pre03;
@@ -252,7 +245,7 @@ module filter_data_align_5x5
     endcase
   end
   always @(*) begin
-    case(i_case_sel_px)
+    case(i_conv_px_sel)
       3'b000 : o_y02 = r_data_px_pre02;
       3'b001 : o_y02 = r_data_px_pre03;
       3'b010 : o_y02 = w_data_ln0  ;
@@ -261,7 +254,7 @@ module filter_data_align_5x5
     endcase
   end
   always @(*) begin
-    case(i_case_sel_px)
+    case(i_conv_px_sel)
       3'b000 : o_y03 = r_data_px_pre03;
       3'b001 : o_y03 = w_data_ln0  ;
       3'b010 : o_y03 = r_data_px_pre00;
@@ -270,7 +263,7 @@ module filter_data_align_5x5
     endcase
   end
   always @(*) begin
-    case(i_case_sel_px)
+    case(i_conv_px_sel)
       3'b000 : o_y04 = w_data_ln0  ;
       3'b001 : o_y04 = r_data_px_pre00;
       3'b010 : o_y04 = r_data_px_pre01;
@@ -279,7 +272,7 @@ module filter_data_align_5x5
     endcase
   end
   always @(*) begin
-    case(i_case_sel_px)
+    case(i_conv_px_sel)
       3'b000 : o_y10 = r_data_px_pre10;
       3'b001 : o_y10 = r_data_px_pre11;
       3'b010 : o_y10 = r_data_px_pre12;
@@ -288,7 +281,7 @@ module filter_data_align_5x5
     endcase
   end
   always @(*) begin
-    case(i_case_sel_px)
+    case(i_conv_px_sel)
       3'b000 : o_y11 = r_data_px_pre11;
       3'b001 : o_y11 = r_data_px_pre12;
       3'b010 : o_y11 = r_data_px_pre13;
@@ -297,7 +290,7 @@ module filter_data_align_5x5
     endcase
   end
   always @(*) begin
-    case(i_case_sel_px)
+    case(i_conv_px_sel)
       3'b000 : o_y12 = r_data_px_pre12;
       3'b001 : o_y12 = r_data_px_pre13;
       3'b010 : o_y12 = w_data_ln1  ;
@@ -306,7 +299,7 @@ module filter_data_align_5x5
     endcase
   end
   always @(*) begin
-    case(i_case_sel_px)
+    case(i_conv_px_sel)
       3'b000 : o_y13 = r_data_px_pre03;
       3'b001 : o_y13 = w_data_ln1  ;
       3'b010 : o_y13 = r_data_px_pre10;
@@ -315,7 +308,7 @@ module filter_data_align_5x5
     endcase
   end
   always @(*) begin
-    case(i_case_sel_px)
+    case(i_conv_px_sel)
       3'b000 : o_y14 = w_data_ln1  ;
       3'b001 : o_y14 = r_data_px_pre10;
       3'b010 : o_y14 = r_data_px_pre11;
@@ -324,7 +317,7 @@ module filter_data_align_5x5
     endcase
   end
   always @(*) begin
-    case(i_case_sel_px)
+    case(i_conv_px_sel)
       3'b000 : o_y20 = r_data_px_pre20;
       3'b001 : o_y20 = r_data_px_pre21;
       3'b010 : o_y20 = r_data_px_pre22;
@@ -333,7 +326,7 @@ module filter_data_align_5x5
     endcase
   end
   always @(*) begin
-    case(i_case_sel_px)
+    case(i_conv_px_sel)
       3'b000 : o_y21 = r_data_px_pre21;
       3'b001 : o_y21 = r_data_px_pre22;
       3'b010 : o_y21 = r_data_px_pre23;
@@ -342,7 +335,7 @@ module filter_data_align_5x5
     endcase
   end
   always @(*) begin
-    case(i_case_sel_px)
+    case(i_conv_px_sel)
       3'b000 : o_y22 = r_data_px_pre22;
       3'b001 : o_y22 = r_data_px_pre23;
       3'b010 : o_y22 = w_data_ln2  ;
@@ -351,7 +344,7 @@ module filter_data_align_5x5
     endcase
   end
   always @(*) begin
-    case(i_case_sel_px)
+    case(i_conv_px_sel)
       3'b000 : o_y23 = r_data_px_pre23;
       3'b001 : o_y23 = w_data_ln2  ;
       3'b010 : o_y23 = r_data_px_pre20;
@@ -360,7 +353,7 @@ module filter_data_align_5x5
     endcase
   end
   always @(*) begin
-    case(i_case_sel_px)
+    case(i_conv_px_sel)
       3'b000 : o_y24 = w_data_ln2  ;
       3'b001 : o_y24 = r_data_px_pre20;
       3'b010 : o_y24 = r_data_px_pre21;
@@ -369,7 +362,7 @@ module filter_data_align_5x5
     endcase
   end
   always @(*) begin
-    case(i_case_sel_px)
+    case(i_conv_px_sel)
       3'b000 : o_y30 = r_data_px_pre00;
       3'b001 : o_y30 = r_data_px_pre01;
       3'b010 : o_y30 = r_data_px_pre02;
@@ -378,7 +371,7 @@ module filter_data_align_5x5
     endcase
   end
   always @(*) begin
-    case(i_case_sel_px)
+    case(i_conv_px_sel)
       3'b000 : o_y31 = r_data_px_pre31;
       3'b001 : o_y31 = r_data_px_pre32;
       3'b010 : o_y31 = r_data_px_pre33;
@@ -387,7 +380,7 @@ module filter_data_align_5x5
     endcase
   end
   always @(*) begin
-    case(i_case_sel_px)
+    case(i_conv_px_sel)
       3'b000 : o_y32 = r_data_px_pre32;
       3'b001 : o_y32 = r_data_px_pre33;
       3'b010 : o_y32 = w_data_ln3  ;
@@ -396,7 +389,7 @@ module filter_data_align_5x5
     endcase
   end
   always @(*) begin
-    case(i_case_sel_px)
+    case(i_conv_px_sel)
       3'b000 : o_y33 = r_data_px_pre33;
       3'b001 : o_y33 = w_data_ln3  ;
       3'b010 : o_y33 = r_data_px_pre30;
@@ -405,7 +398,7 @@ module filter_data_align_5x5
     endcase
   end
   always @(*) begin
-    case(i_case_sel_px)
+    case(i_conv_px_sel)
       3'b000 : o_y34 = w_data_ln3  ;
       3'b001 : o_y34 = r_data_px_pre30;
       3'b010 : o_y34 = r_data_px_pre31;
@@ -414,7 +407,7 @@ module filter_data_align_5x5
     endcase
   end
   always @(*) begin
-    case(i_case_sel_px)
+    case(i_conv_px_sel)
       3'b000 : o_y40 = r_data_px_pre40;
       3'b001 : o_y40 = r_data_px_pre41;
       3'b010 : o_y40 = r_data_px_pre42;
@@ -423,7 +416,7 @@ module filter_data_align_5x5
     endcase
   end
   always @(*) begin
-    case(i_case_sel_px)
+    case(i_conv_px_sel)
       3'b000 : o_y41 = r_data_px_pre41;
       3'b001 : o_y41 = r_data_px_pre42;
       3'b010 : o_y41 = r_data_px_pre43;
@@ -432,7 +425,7 @@ module filter_data_align_5x5
     endcase
   end
   always @(*) begin
-    case(i_case_sel_px)
+    case(i_conv_px_sel)
       3'b000 : o_y42 = r_data_px_pre42;
       3'b001 : o_y42 = r_data_px_pre43;
       3'b010 : o_y42 = w_data_ln4  ;
@@ -441,7 +434,7 @@ module filter_data_align_5x5
     endcase
   end
   always @(*) begin
-    case(i_case_sel_px)
+    case(i_conv_px_sel)
       3'b000 : o_y43 = r_data_px_pre43;
       3'b001 : o_y43 = w_data_ln4  ;
       3'b010 : o_y43 = r_data_px_pre40;
@@ -450,7 +443,7 @@ module filter_data_align_5x5
     endcase
   end
   always @(*) begin
-    case(i_case_sel_px)
+    case(i_conv_px_sel)
       3'b000 : o_y44 = w_data_ln4  ;
       3'b001 : o_y44 = r_data_px_pre40;
       3'b010 : o_y44 = r_data_px_pre41;

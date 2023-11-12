@@ -34,7 +34,7 @@ vd:
 		cd ${dir}/02_Sim/01_func/$${dir_name}/. ;\
 		cp ${dir}/01_Env/02_Source_Code/09_rc/novas.rc ${dir}/02_Sim/01_func/$${dir_name}/. ;\
 		verdi -dbdir ./simv.daidir -ssf ./03_fsdb/waveform.fsdb &
-vd_list:
+vdf:
 		echo "==== directory list ===="
 		ls ${dir}/02_Sim/01_func/.
 		@read -p "Type Directory Name: " dir_name ;\

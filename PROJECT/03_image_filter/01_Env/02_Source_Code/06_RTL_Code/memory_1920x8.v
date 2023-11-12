@@ -6,7 +6,7 @@ module memory_1920x8
   input                 rstn     ,
 
   input                 i_en     ,
-  input      [10:0]     i_addr   ,
+  input      [11:0]     i_addr   ,
   input      [7:0]      i_data   ,
 
   output reg [7:0]      o_data

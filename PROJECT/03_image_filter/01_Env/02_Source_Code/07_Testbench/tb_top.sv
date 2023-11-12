@@ -44,15 +44,7 @@ module tb_top;
     .clk            (m_itf.clk            ),
     .rstn           (m_itf.rstn           ),
     .clk_apb        (m_itf.clk_apb        ),
-    .rstn_apb       (m_itf.rstn_apb       ),
-    .i_apb_addr     (m_itf.i_apb_addr     ),
-    .i_apb_data     (m_itf.i_apb_data     ),
-    .i_apb_wait     (m_itf.i_apb_wait     ),
-    .i_apb_write_trg(m_itf.i_apb_write_trg),
-    .i_apb_read_trg (m_itf.i_apb_read_trg ),
-    .i_apb_sel      (m_itf.i_apb_sel      ),
-    .i_x            (m_itf.i_x            ),
-    .o_y            (m_itf.o_y            )
+    .rstn_apb       (m_itf.rstn_apb       )
   );
 
 endmodule
