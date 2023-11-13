@@ -5,7 +5,7 @@ module apb_master
 #(
   parameter SEL_WIDTH       = 4   , 
   parameter ADDR_WIDTH      = 10  , // maximum width 32 bits
-  parameter DATA_WIDTH      = 8   , // 8/16/32 bits wide
+  parameter DATA_WIDTH      = 32   , // 8/16/32 bits wide
   parameter USER_REQ_WIDTH  = 4   , // maximum width of 128 bits
   parameter USER_DATA_WIDTH = 4   , // maximum width of DATA_WIDTH/2
   parameter USER_RESP_WIDTH = 4     // maximum width of 16 bits

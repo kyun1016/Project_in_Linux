@@ -2,6 +2,36 @@
 // ./pkg_tx_sequencer.sv
 
 class cls_sequencer;
+  localparam CSC_COEF0      = 8'h00;
+  localparam CSC_COEF1      = 8'h04;
+  localparam CSC_COEF2      = 8'h08;
+  localparam CSC_BIAS       = 8'h0A;
+  localparam ICSC_COEF0     = 8'h10;
+  localparam ICSC_COEF1     = 8'h14;
+  localparam ICSC_COEF2     = 8'h18;
+  localparam ICSC_BIAS      = 8'h1A;
+  localparam FILTER1_COEF00 = 8'h20;
+  localparam FILTER1_COEF03 = 8'h24;
+  localparam FILTER1_COEF10 = 8'h28;
+  localparam FILTER1_COEF13 = 8'h2A;
+  localparam FILTER1_COEF20 = 8'h30;
+  localparam FILTER1_COEF23 = 8'h34;
+  localparam FILTER1_COEF30 = 8'h38;
+  localparam FILTER1_COEF33 = 8'h3A;
+  localparam FILTER1_COEF40 = 8'h40;
+  localparam FILTER1_COEF43 = 8'h44;
+  localparam FILTER2_COEF00 = 8'h48;
+  localparam FILTER2_COEF03 = 8'h4A;
+  localparam FILTER2_COEF10 = 8'h50;
+  localparam FILTER2_COEF13 = 8'h54;
+  localparam FILTER2_COEF20 = 8'h58;
+  localparam FILTER2_COEF23 = 8'h5A;
+  localparam FILTER2_COEF30 = 8'h60;
+  localparam FILTER2_COEF33 = 8'h64;
+  localparam FILTER2_COEF40 = 8'h68;
+  localparam FILTER2_COEF43 = 8'h6A;
+  localparam BYPASS         = 8'h70;
+
   virtual itf_data m_itf;
 
   function new(
@@ -79,7 +109,7 @@ class cls_sequencer;
   endtask
 
 
-  task apb_write(
+  task write_apb(
     int i_addr,
     int i_data
   );
@@ -96,6 +126,46 @@ class cls_sequencer;
     m_itf.i_apb_sel       = 0;
   endtask
 
+  task write_apb_all();
+    int addr;
+    int data;
+    for(int i=0;i<40;++i) begin
+      addr = i*4;
+      case(addr)
+        CSC_COEF0      : data = {2'b0 , m_itf.csc_coef[0][2]    , m_itf.csc_coef[0][1]    , m_itf.csc_coef[0][0] };
+        CSC_COEF1      : data = {2'b0 , m_itf.csc_coef[1][2]    , m_itf.csc_coef[1][1]    , m_itf.csc_coef[1][0] };
+        CSC_COEF2      : data = {2'b0 , m_itf.csc_coef[2][2]    , m_itf.csc_coef[2][1]    , m_itf.csc_coef[2][0] };
+        CSC_BIAS       : data = {8'b0 , m_itf.csc_bias[2]       , m_itf.csc_bias[1]       , m_itf.csc_bias[0]    };
+        ICSC_COEF0     : data = {2'b0 , m_itf.icsc_coef[0][2]   , m_itf.icsc_coef[0][1]   , m_itf.icsc_coef[0][0]};
+        ICSC_COEF1     : data = {2'b0 , m_itf.icsc_coef[1][2]   , m_itf.icsc_coef[1][1]   , m_itf.icsc_coef[1][0]};
+        ICSC_COEF2     : data = {2'b0 , m_itf.icsc_coef[2][2]   , m_itf.icsc_coef[2][1]   , m_itf.icsc_coef[2][0]};
+        ICSC_BIAS      : data = {8'b0 , m_itf.icsc_bias[2]      , m_itf.icsc_bias[1]      , m_itf.icsc_bias[0]   };
+        FILTER1_COEF00 : data = {2'b0 , m_itf.filter1_coef[0][2], m_itf.filter1_coef[0][1], m_itf.filter1_coef[0][0]};
+        FILTER1_COEF03 : data = {12'b0, m_itf.filter1_coef[0][4], m_itf.filter1_coef[0][3]};
+        FILTER1_COEF10 : data = {2'b0 , m_itf.filter1_coef[1][2], m_itf.filter1_coef[1][1], m_itf.filter1_coef[1][0]};
+        FILTER1_COEF13 : data = {12'b0, m_itf.filter1_coef[1][4], m_itf.filter1_coef[1][3]};
+        FILTER1_COEF20 : data = {2'b0 , m_itf.filter1_coef[2][2], m_itf.filter1_coef[2][1], m_itf.filter1_coef[2][0]};
+        FILTER1_COEF23 : data = {12'b0, m_itf.filter1_coef[2][4], m_itf.filter1_coef[2][3]};
+        FILTER1_COEF30 : data = {2'b0 , m_itf.filter1_coef[3][2], m_itf.filter1_coef[3][1], m_itf.filter1_coef[3][0]};
+        FILTER1_COEF33 : data = {12'b0, m_itf.filter1_coef[3][4], m_itf.filter1_coef[3][3]};
+        FILTER1_COEF40 : data = {2'b0 , m_itf.filter1_coef[4][2], m_itf.filter1_coef[4][1], m_itf.filter1_coef[4][0]};
+        FILTER1_COEF43 : data = {12'b0, m_itf.filter1_coef[4][4], m_itf.filter1_coef[4][3]};
+        FILTER2_COEF00 : data = {2'b0 , m_itf.filter2_coef[0][2], m_itf.filter2_coef[0][1], m_itf.filter2_coef[0][0]};
+        FILTER2_COEF03 : data = {12'b0, m_itf.filter2_coef[0][4], m_itf.filter2_coef[0][3]};
+        FILTER2_COEF10 : data = {2'b0 , m_itf.filter2_coef[1][2], m_itf.filter2_coef[1][1], m_itf.filter2_coef[1][0]};
+        FILTER2_COEF13 : data = {12'b0, m_itf.filter2_coef[1][4], m_itf.filter2_coef[1][3]};
+        FILTER2_COEF20 : data = {2'b0 , m_itf.filter2_coef[2][2], m_itf.filter2_coef[2][1], m_itf.filter2_coef[2][0]};
+        FILTER2_COEF23 : data = {12'b0, m_itf.filter2_coef[2][4], m_itf.filter2_coef[2][3]};
+        FILTER2_COEF30 : data = {2'b0 , m_itf.filter2_coef[3][2], m_itf.filter2_coef[3][1], m_itf.filter2_coef[3][0]};
+        FILTER2_COEF33 : data = {12'b0, m_itf.filter2_coef[3][4], m_itf.filter2_coef[3][3]};
+        FILTER2_COEF40 : data = {2'b0 , m_itf.filter2_coef[4][2], m_itf.filter2_coef[4][1], m_itf.filter2_coef[4][0]};
+        FILTER2_COEF43 : data = {12'b0, m_itf.filter2_coef[4][4], m_itf.filter2_coef[4][3]};
+        BYPASS         : data = {28'b0, m_itf.icsc_bypass       , m_itf.filter2_bypass    , m_itf.filter1_bypass,     m_itf.csc_bypass};
+        default        : data = 32'b0;
+      endcase
+      write_apb(addr, data);
+    end
 
+  endtask
 
 endclass

@@ -1,8 +1,10 @@
 // ./list_testbench.f
 
 // ../04_TX_Model/01_class/01_data/pkg_tx_data.sv
-// ../04_TX_Model/01_class/01_data/cls_link.sv
+// ../04_TX_Model/01_class/01_data/cls_read_ppm.sv
+// ../04_TX_Model/01_class/01_data/cls_apb.sv
 import pkg_tx_data::cls_read_ppm;
+import pkg_tx_data::cls_apb;
 // ../04_TX_Model/01_class/03_sequencer/pkg_tx_sequencer.sv
 // ../04_TX_Model/01_class/03_sequencer/cls_sequencer.sv
 import pkg_tx_sequencer::cls_sequencer;
@@ -15,9 +17,9 @@ module tb_top
 )();
   localparam
     VBP        = 3,
-    VFP        = 3,
+    VFP        = 10,
     HBP        = 3,
-    HFP        = 3;
+    HFP        = 10;
   reg clk;
   reg rstn;
   reg clk_apb;
@@ -30,8 +32,9 @@ module tb_top
     .rstn_apb (rstn_apb)
   );
 
-  cls_read_ppm r_ppm = new(m_itf);
-  cls_sequencer sequencer = new(m_itf);
+  cls_read_ppm c_ppm = new(m_itf);
+  cls_apb c_apb = new(m_itf);
+  cls_sequencer c_sequencer = new(m_itf);
 
   initial begin : clk_reset_control
     clk  = 0;
@@ -58,19 +61,17 @@ module tb_top
   end
 
   initial begin : main
-    r_ppm.set_fp("/home/park/Project_in_Linux/PROJECT/03_image_filter/01_Env/02_Source_Code/08_Stimulus/02_ppm/H_RAMP_PIXEL.ppm");
-    r_ppm.set_frame();
-
+    c_ppm.read_ppm("/home/park/Project_in_Linux/PROJECT/03_image_filter/01_Env/02_Source_Code/10_Python/image/input/sample1.ppm");
+    c_apb.read_csc_coef("/home/park/Project_in_Linux/PROJECT/03_image_filter/01_Env/02_Source_Code/10_Python/verilog/csc_coef.txt");
+    c_apb.read_filter1_coef("/home/park/Project_in_Linux/PROJECT/03_image_filter/01_Env/02_Source_Code/10_Python/verilog/filter1_coef.txt");
+    c_apb.read_filter2_coef("/home/park/Project_in_Linux/PROJECT/03_image_filter/01_Env/02_Source_Code/10_Python/verilog/filter2_coef.txt");
+    c_apb.read_icsc_coef("/home/park/Project_in_Linux/PROJECT/03_image_filter/01_Env/02_Source_Code/10_Python/verilog/icsc_coef.txt");
     @(posedge rstn_apb);
 
-    for(int i=0; i<20; ++i)
-      sequencer.apb_write(
-        .i_addr(i*4),
-        .i_data(10+2*i)
-      );
+    c_sequencer.write_apb_all();
 
     repeat(1)
-      sequencer.send_frame(
+      c_sequencer.send_frame(
         .i_vbp(VBP),
         .i_vfp(VFP),
         .i_hbp(HBP),
