@@ -57,8 +57,11 @@ lint:
 		rm -r ${dir}/03_Lint/$${dir_name} ;\
 		mkdir ${dir}/03_Lint/$${dir_name} ;\
 		mkdir ${dir}/03_Lint/$${dir_name}/01_script ;\
+		mkdir ${dir}/03_Lint/$${dir_name}/01_script/01_RTL ;\
 		mkdir ${dir}/03_Lint/$${dir_name}/02_logs ;\
 		mkdir ${dir}/03_Lint/$${dir_name}/03_rpts ;\
-		cp ./01_Lint/run.tcl ../05_Lint/$${dir_name}/01_script ;\
-		cd ../03_Lint/$${dir_name} ;\
+		cp ${dir}/01_Env/04_Lint/run.tcl ${dir}/03_Lint/$${dir_name}/01_script ;\
+		cp ${dir}/01_Env/02_Source_Code/06_RTL_Code/*.v ${dir}/03_Lint/$${dir_name}/01_script/01_RTL/. ;\
+		cd ${dir}/03_Lint/$${dir_name} ;\
+		ls 01_script/01_RTL/*.v > ./01_script/01_RTL/list_rtl.f ;\
 		spyglass & 	

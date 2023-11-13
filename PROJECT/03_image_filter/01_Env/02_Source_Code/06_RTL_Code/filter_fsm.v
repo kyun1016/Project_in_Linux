@@ -115,34 +115,34 @@ module filter_fsm
   // Part 3. Define FSM
   //=============================================================
   always @(posedge clk, negedge rstn) begin
-    if(!rstn) begin
+    if(!rstn)
       r_st_v <= VAL_INIT;
-    end
-    case(1'b1)
-      r_st_v[INIT]  : if(i_vs)                    r_st_v <= VAL_WAIT;
-      r_st_v[WAIT]  : if(i_hs & (r_cnt_v == VBP)) r_st_v <= VAL_FILL1;
-      r_st_v[FILL1] : if(i_hs)                    r_st_v <= VAL_FILL2;
-      r_st_v[FILL2] : if(i_hs)                    r_st_v <= VAL_OPER;
-      r_st_v[OPER]  : if(i_hs & (r_cnt_v == VAC)) r_st_v <= VAL_FLUSH1;
-      r_st_v[FLUSH1]: if(i_hs)                    r_st_v <= VAL_FLUSH2;
-      r_st_v[FLUSH2]: if(i_hs)                    r_st_v <= VAL_INIT;
-      default       :                             r_st_v <= VAL_INIT;
-    endcase
+    else
+      case(1'b1)
+        r_st_v[INIT]  : if(i_vs)                    r_st_v <= VAL_WAIT;
+        r_st_v[WAIT]  : if(i_hs & (r_cnt_v == VBP)) r_st_v <= VAL_FILL1;
+        r_st_v[FILL1] : if(i_hs)                    r_st_v <= VAL_FILL2;
+        r_st_v[FILL2] : if(i_hs)                    r_st_v <= VAL_OPER;
+        r_st_v[OPER]  : if(i_hs & (r_cnt_v == VAC)) r_st_v <= VAL_FLUSH1;
+        r_st_v[FLUSH1]: if(i_hs)                    r_st_v <= VAL_FLUSH2;
+        r_st_v[FLUSH2]: if(i_hs)                    r_st_v <= VAL_INIT;
+        default       :                             r_st_v <= VAL_INIT;
+      endcase
   end
   always @(posedge clk, negedge rstn) begin
-    if(!rstn) begin
+    if(!rstn)
       r_st_h <= VAL_INIT;
-    end
-    case(1'b1)
-      r_st_h[INIT]  : if(i_hs)           r_st_h <= VAL_WAIT;
-      r_st_h[WAIT]  : if(r_cnt_h == HBP) r_st_h <= VAL_FILL1;
-      r_st_h[FILL1] :                    r_st_h <= VAL_FILL2;
-      r_st_h[FILL2] :                    r_st_h <= VAL_OPER;
-      r_st_h[OPER]  : if(r_cnt_h == HAC) r_st_h <= VAL_FLUSH1;
-      r_st_h[FLUSH1]:                    r_st_h <= VAL_FLUSH2;
-      r_st_h[FLUSH2]:                    r_st_h <= VAL_INIT;
-      default       :                    r_st_h <= VAL_INIT;
-    endcase
+    else
+      case(1'b1)
+        r_st_h[INIT]  : if(i_hs)           r_st_h <= VAL_WAIT;
+        r_st_h[WAIT]  : if(r_cnt_h == HBP) r_st_h <= VAL_FILL1;
+        r_st_h[FILL1] :                    r_st_h <= VAL_FILL2;
+        r_st_h[FILL2] :                    r_st_h <= VAL_OPER;
+        r_st_h[OPER]  : if(r_cnt_h == HAC) r_st_h <= VAL_FLUSH1;
+        r_st_h[FLUSH1]:                    r_st_h <= VAL_FLUSH2;
+        r_st_h[FLUSH2]:                    r_st_h <= VAL_INIT;
+        default       :                    r_st_h <= VAL_INIT;
+      endcase
   end
 
   //=============================================================
@@ -152,13 +152,13 @@ module filter_fsm
   assign o_mem_wen[2]  = ((|r_st_v[OPER:FILL1]) && (|r_st_h[OPER:FILL1]) && (r_st_v[FILL1] | (r_cnt_v[1:0] == 2'b00))) ? 1'b1 : 1'b0;
   assign o_mem_wen[1]  = ((|r_st_v[OPER:FILL1]) && (|r_st_h[OPER:FILL1]) && (r_st_v[FILL1] | (r_cnt_v[1:0] == 2'b11))) ? 1'b1 : 1'b0;
   assign o_mem_wen[0]  = ((|r_st_v[OPER:FILL1]) && (|r_st_h[OPER:FILL1]) && (r_st_v[FILL1] | (r_cnt_v[1:0] == 2'b10))) ? 1'b1 : 1'b0;
-  assign o_mem_ren     = ((!r_st_v[FILL2:INIT]) &  (!r_st_h[FILL2:INIT])) ? 1'b1 : 1'b0;
-  assign o_mem_addr    = ((!r_st_v[WAIT:INIT] ) &  (!r_st_h[WAIT:INIT] )) ? r_cnt_h : 0; // [11:0] 
+  assign o_mem_ren     = (!(|r_st_v[FILL2:INIT]) & !(|r_st_h[FILL2:INIT])) ? 1'b1 : 1'b0;
+  assign o_mem_addr    = (!(|r_st_v[WAIT:INIT] ) & !(|r_st_h[WAIT:INIT] )) ? r_cnt_h : 0; // [11:0] 
   assign o_conv_wen[3] = ((|r_st_v[OPER:FILL1]) && (|r_st_h[OPER:FILL1]) &&                  (r_cnt_h[1:0] == 2'b01) ) ? 1'b1 : 1'b0;
   assign o_conv_wen[2] = ((|r_st_v[OPER:FILL1]) && (|r_st_h[OPER:FILL1]) && (r_st_h[FILL1] | (r_cnt_h[1:0] == 2'b00))) ? 1'b1 : 1'b0;
   assign o_conv_wen[1] = ((|r_st_v[OPER:FILL1]) && (|r_st_h[OPER:FILL1]) && (r_st_h[FILL1] | (r_cnt_h[1:0] == 2'b11))) ? 1'b1 : 1'b0;
   assign o_conv_wen[0] = ((|r_st_v[OPER:FILL1]) && (|r_st_h[OPER:FILL1]) && (r_st_h[FILL1] | (r_cnt_h[1:0] == 2'b10))) ? 1'b1 : 1'b0;
-  assign o_conv_ren    = ((!r_st_v[FILL2:INIT]) &  (!r_st_h[FILL2:INIT])) ? 1'b1 : 1'b0;
+  assign o_conv_ren    = (!(|r_st_v[FILL2:INIT]) & !(|r_st_h[FILL2:INIT])) ? 1'b1 : 1'b0;
   assign o_conv_ln_sel = r_cnt_ln; // [2:0]  
   assign o_conv_px_sel = r_cnt_px; // [2:0]  
   assign o_vs          = 0;
