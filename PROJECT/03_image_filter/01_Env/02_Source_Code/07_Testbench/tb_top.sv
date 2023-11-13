@@ -63,10 +63,11 @@ module tb_top
 
     @(posedge rstn_apb);
 
-    sequencer.apb_write(
-      .i_addr(0),
-      .i_data(10)
-    );
+    for(int i=0; i<20; ++i)
+      sequencer.apb_write(
+        .i_addr(i*4),
+        .i_data(10+2*i)
+      );
 
     repeat(1)
       sequencer.send_frame(

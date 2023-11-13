@@ -15,7 +15,7 @@ class cls_sequencer;
     m_itf.i_r = m_itf.frame_r[m_itf.cnt_line][m_itf.cnt_ch];
     m_itf.i_g = m_itf.frame_g[m_itf.cnt_line][m_itf.cnt_ch];
     m_itf.i_b = m_itf.frame_b[m_itf.cnt_line][m_itf.cnt_ch];
-    @(posedge m_itf.clk);
+    @(negedge m_itf.clk);
     m_itf.i_de = 0;
   endtask
 
@@ -24,7 +24,7 @@ class cls_sequencer;
     m_itf.i_r = 0;
     m_itf.i_g = 0;
     m_itf.i_b = 0;
-    @(posedge m_itf.clk);
+    @(negedge m_itf.clk);
   endtask
 
   task send_line(
@@ -33,7 +33,7 @@ class cls_sequencer;
   );
     -> m_itf.evt_hs;
     m_itf.i_hs = 1;
-    @(posedge m_itf.clk);
+    @(negedge m_itf.clk);
     m_itf.i_hs = 0;
     repeat(i_hbp)
       send_pixel_dummy();
@@ -49,7 +49,7 @@ class cls_sequencer;
   );
     -> m_itf.evt_hs;
     m_itf.i_hs = 1;
-    @(posedge m_itf.clk);
+    @(negedge m_itf.clk);
     m_itf.i_hs = 0;
     repeat(i_hbp)
       send_pixel_dummy();
@@ -88,8 +88,12 @@ class cls_sequencer;
     m_itf.i_apb_sel       = 1;
     m_itf.i_apb_write_trg = 1;
     m_itf.i_apb_wait      = 0;
-    @(posedge m_itf.clk_apb);
+    @(negedge m_itf.clk_apb);
     m_itf.i_apb_write_trg = 0;
+    @(negedge m_itf.clk_apb);
+    @(negedge m_itf.clk_apb);
+    @(negedge m_itf.clk_apb);
+    m_itf.i_apb_sel       = 0;
   endtask
 
 
