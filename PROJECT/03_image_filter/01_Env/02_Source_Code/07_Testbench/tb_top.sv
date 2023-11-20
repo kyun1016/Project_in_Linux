@@ -18,8 +18,10 @@ module tb_top
   localparam
     VBP        = 3,
     VFP        = 10,
-    HBP        = 3,
-    HFP        = 10;
+    VSY        = 3 ,
+    HBP        = 3 ,
+    HFP        = 10,
+    HSY        = 1 ;
   reg clk;
   reg rstn;
   reg clk_apb;
@@ -74,11 +76,13 @@ module tb_top
       c_sequencer.send_frame(
         .i_vbp(VBP),
         .i_vfp(VFP),
+        .i_vsy(VSY),
         .i_hbp(HBP),
-        .i_hfp(HFP)
+        .i_hfp(HFP),
+        .i_hsy(HSY)
       );
 
-    repeat(1000)
+    repeat(100000)
       @(posedge clk);
     $finish;
   end

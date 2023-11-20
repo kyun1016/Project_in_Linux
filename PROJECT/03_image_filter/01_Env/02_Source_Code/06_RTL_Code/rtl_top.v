@@ -2,36 +2,44 @@
 
 module rtl_top
 #(
-  parameter SEL_WIDTH       = 4   , 
-  parameter ADDR_WIDTH      = 10  , // maximum width 32 bits
-  parameter DATA_WIDTH      = 8     // 8/16/32 bits wide
+  parameter SEL_WIDTH       = 4 , 
+  parameter APB_ADDR_WIDTH  = 10, // maximum width 32 bits
+  parameter APB_DATA_WIDTH  = 32, // 8/16/32 bits wide
+  parameter DATA_WIDTH      = 8 , // R/G/B
+  parameter COEF_WIDTH      = 10, 
+  parameter BIAS_WIDTH      = 8 ,
+
+  parameter CSC_RL          = 9 ,
+  parameter ICSC_RL         = 9 ,
+  parameter FILTER1_RL      = 9 ,
+  parameter FILTER2_RL      = 9 
 )
 (
-  input                   clk             ,
-  input                   rstn            ,
-  input                   clk_apb         ,
-  input                   rstn_apb        ,
+  input                       clk             ,
+  input                       rstn            ,
+  input                       clk_apb         ,
+  input                       rstn_apb        ,
 
-  input  [ADDR_WIDTH-1:0] i_apb_paddr     , // APB address bus
-  input                   i_apb_psel      , // Select
-  input                   i_apb_penable   , // Enable
-  input                   i_apb_pwrite    , // Direction
-  input  [31:0]           i_apb_pwdata    , // Write data (PWRITE is HIGH)
-  output                  o_apb_pready    , // used to extend an APB transfer by the Completer
-  output [31:0]           o_apb_prdata    , // Write data (PWRITE is HIGH)
+  input  [APB_ADDR_WIDTH-1:0] i_apb_paddr     , // APB address bus
+  input                       i_apb_psel      , // Select
+  input                       i_apb_penable   , // Enable
+  input                       i_apb_pwrite    , // Direction
+  input  [APB_DATA_WIDTH-1:0] i_apb_pwdata    , // Write data (PWRITE is HIGH)
+  output                      o_apb_pready    , // used to extend an APB transfer by the Completer
+  output [APB_DATA_WIDTH-1:0] o_apb_prdata    , // Write data (PWRITE is HIGH)
 
-  input                   i_vs            ,
-  input                   i_hs            ,
-  input                   i_de            ,
-  input  [DATA_WIDTH-1:0] i_r             ,
-  input  [DATA_WIDTH-1:0] i_g             ,
-  input  [DATA_WIDTH-1:0] i_b             ,
-  output                  o_vs            ,
-  output                  o_hs            ,
-  output                  o_de            ,
-  output [DATA_WIDTH-1:0] o_r             ,
-  output [DATA_WIDTH-1:0] o_g             ,
-  output [DATA_WIDTH-1:0] o_b              
+  input                       i_vs            ,
+  input                       i_hs            ,
+  input                       i_de            ,
+  input  [DATA_WIDTH-1:0]     i_r             ,
+  input  [DATA_WIDTH-1:0]     i_g             ,
+  input  [DATA_WIDTH-1:0]     i_b             ,
+  output                      o_vs            ,
+  output                      o_hs            ,
+  output                      o_de            ,
+  output [DATA_WIDTH-1:0]     o_r             ,
+  output [DATA_WIDTH-1:0]     o_g             ,
+  output [DATA_WIDTH-1:0]     o_b              
 );
   wire [9:0] w_csc_coef00    ;
   wire [9:0] w_csc_coef01    ;
@@ -208,7 +216,14 @@ module rtl_top
   wire [7:0] w_csc_y;
   wire [7:0] w_csc_u;
   wire [7:0] w_csc_v;
-  mat_mul_3x3 u_rgb2yuv
+  csc_mat_mul_3x3 
+  #(
+    .DATA_WIDTH(DATA_WIDTH),
+    .COEF_WIDTH(COEF_WIDTH),
+    .BIAS_WIDTH(BIAS_WIDTH),
+    .RL        (CSC_RL    )
+  )
+  u_rgb2yuv
   (
     .clk      (clk         ),
     .rstn     (rstn        ),
@@ -246,7 +261,13 @@ module rtl_top
   wire [7:0] w_filter1_y;
   wire [7:0] w_filter1_u;
   wire [7:0] w_filter1_v;
-  filter_top_5x5 u_denoise_filter
+  filter_top_5x5 
+  #(
+    .DATA_WIDTH(DATA_WIDTH),
+    .COEF_WIDTH(COEF_WIDTH),
+    .RL        (FILTER1_RL)
+  )
+  u_denoise_filter
   (
     .clk      (clk             ),
     .rstn     (rstn            ),
@@ -342,7 +363,7 @@ module rtl_top
     .o_v      (w_filter2_v     )  // [DATA_WIDTH-1:0] 
   );
 
-  mat_mul_3x3 u_yuv2rgb
+  icsc_mat_mul_3x3 u_yuv2rgb
   (
     .clk      (clk         ),
     .rstn     (rstn        ),

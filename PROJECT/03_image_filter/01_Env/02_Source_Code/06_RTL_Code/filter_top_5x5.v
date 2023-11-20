@@ -2,8 +2,13 @@
 
 module filter_top_5x5
 #(
-  parameter DATA_WIDTH = 8,
-  parameter COEF_WIDTH = 10
+  parameter DATA_WIDTH     = 8 ,
+  parameter COEF_WIDTH     = 10,
+  parameter MEM_Y_WIDTH    = 4 ,
+  parameter MEM_U_WIDTH    = 2 ,
+  parameter MEM_V_WIDTH    = 2 ,
+  parameter MEM_ADDR_WIDTH = 11,
+  parameter RL             = 8
 )
 (
   input                    clk      ,
@@ -49,26 +54,35 @@ module filter_top_5x5
   output  [DATA_WIDTH-1:0] o_v      
 );
 
-  wire [3:0]  w_mem_wen    ;
-  wire        w_mem_ren    ;
-  wire [11:0] w_mem_addr   ;
-  wire [3:0]  w_conv_wen   ;
-  wire        w_conv_ren   ;
-  wire [2:0]  w_conv_ln_sel;
-  wire [2:0]  w_conv_px_sel;
-  filter_fsm u_fsm(
+  wire [MEM_Y_WIDTH-1:0]    w_mem_y_wen;
+  wire [MEM_Y_WIDTH-1:0]    w_mem_y_ren;
+  wire [MEM_U_WIDTH-1:0]    w_mem_u_wen;
+  wire [MEM_U_WIDTH-1:0]    w_mem_u_ren;
+  wire [MEM_V_WIDTH-1:0]    w_mem_v_wen;
+  wire [MEM_V_WIDTH-1:0]    w_mem_v_ren;
+  wire [MEM_ADDR_WIDTH-1:0] w_mem_waddr;
+  wire [MEM_ADDR_WIDTH-1:0] w_mem_raddr;
+  filter_fsm 
+  #(
+    .MEM_Y_WIDTH   (MEM_Y_WIDTH   ),
+    .MEM_U_WIDTH   (MEM_U_WIDTH   ),
+    .MEM_V_WIDTH   (MEM_V_WIDTH   ),
+    .MEM_ADDR_WIDTH(MEM_ADDR_WIDTH)
+  )
+  u_fsm(
     .clk          (clk          ),
     .rstn         (rstn         ),
     .i_vs         (i_vs         ),
     .i_hs         (i_hs         ),
     .i_de         (i_de         ),
-    .o_mem_wen    (w_mem_wen    ), // [3:0]
-    .o_mem_ren    (w_mem_ren    ), //
-    .o_mem_addr   (w_mem_addr   ), // [11:0] 
-    .o_conv_wen   (w_conv_wen   ), // [3:0]
-    .o_conv_ren   (w_conv_ren   ), //
-    .o_conv_ln_sel(w_conv_ln_sel), // [2:0]  
-    .o_conv_px_sel(w_conv_px_sel), // [2:0]  
+    .o_mem_y_wen  (w_mem_y_wen  ),
+    .o_mem_y_ren  (w_mem_y_ren  ),
+    .o_mem_u_wen  (w_mem_u_wen  ),
+    .o_mem_u_ren  (w_mem_u_ren  ),
+    .o_mem_v_wen  (w_mem_v_wen  ),
+    .o_mem_v_ren  (w_mem_v_ren  ),
+    .o_mem_waddr  (w_mem_waddr  ),
+    .o_mem_raddr  (w_mem_raddr  ),
     .o_vs         (o_vs         ), //        
     .o_hs         (o_hs         ), //        
     .o_de         (o_de         )  //      
@@ -99,19 +113,27 @@ module filter_top_5x5
   wire signed [DATA_WIDTH-1:0] w_y42;
   wire signed [DATA_WIDTH-1:0] w_y43;
   wire signed [DATA_WIDTH-1:0] w_y44;
-  filter_data_align_5x5 u_data_align(
+  filter_data_align_5x5 
+  #(
+    .MEM_Y_WIDTH   (MEM_Y_WIDTH   ),
+    .MEM_U_WIDTH   (MEM_U_WIDTH   ),
+    .MEM_V_WIDTH   (MEM_V_WIDTH   ),
+    .MEM_ADDR_WIDTH(MEM_ADDR_WIDTH)
+  )
+  u_data_align(
     .clk          (clk          ),
     .rstn         (rstn         ),
     .i_y          (i_y          ),
     .i_u          (i_u          ),
     .i_v          (i_v          ),
-    .i_mem_addr   (w_mem_addr   ), // [11:0]
-    .i_mem_wen    (w_mem_wen    ), // [3:0] 
-    .i_mem_ren    (w_mem_ren    ), // [3:0] 
-    .i_conv_wen   (w_conv_wen   ), // [3:0] 
-    .i_conv_ren   (w_conv_ren   ), // 
-    .i_conv_ln_sel(w_conv_ln_sel), // [2:0] 
-    .i_conv_px_sel(w_conv_px_sel), // [2:0] 
+    .i_mem_y_wen  (w_mem_y_wen  ),
+    .i_mem_y_ren  (w_mem_y_ren  ),
+    .i_mem_u_wen  (w_mem_u_wen  ),
+    .i_mem_u_ren  (w_mem_u_ren  ),
+    .i_mem_v_wen  (w_mem_v_wen  ),
+    .i_mem_v_ren  (w_mem_v_ren  ),
+    .i_mem_waddr  (w_mem_waddr  ),
+    .i_mem_raddr  (w_mem_raddr  ),
     .o_y00        (w_y00        ),
     .o_y01        (w_y01        ),
     .o_y02        (w_y02        ),

@@ -39,10 +39,10 @@ class cls_apb;
 
     fp = $fopen(file_name, "r");
     count = $fscanf(fp, "%d %d %d %d %d\n", m_itf.filter1_coef[0][0], m_itf.filter1_coef[0][1], m_itf.filter1_coef[0][2], m_itf.filter1_coef[0][3], m_itf.filter1_coef[0][4]);
-    count = $fscanf(fp, "%d %d %d %d %d\n", m_itf.filter1_coef[0][0], m_itf.filter1_coef[1][1], m_itf.filter1_coef[1][2], m_itf.filter1_coef[1][3], m_itf.filter1_coef[1][4]);
-    count = $fscanf(fp, "%d %d %d %d %d\n", m_itf.filter1_coef[0][0], m_itf.filter1_coef[2][1], m_itf.filter1_coef[2][2], m_itf.filter1_coef[2][3], m_itf.filter1_coef[2][4]);
-    count = $fscanf(fp, "%d %d %d %d %d\n", m_itf.filter1_coef[0][0], m_itf.filter1_coef[3][1], m_itf.filter1_coef[3][2], m_itf.filter1_coef[3][3], m_itf.filter1_coef[3][4]);
-    count = $fscanf(fp, "%d %d %d %d %d\n", m_itf.filter1_coef[0][0], m_itf.filter1_coef[4][1], m_itf.filter1_coef[4][2], m_itf.filter1_coef[4][3], m_itf.filter1_coef[4][4]);
+    count = $fscanf(fp, "%d %d %d %d %d\n", m_itf.filter1_coef[1][0], m_itf.filter1_coef[1][1], m_itf.filter1_coef[1][2], m_itf.filter1_coef[1][3], m_itf.filter1_coef[1][4]);
+    count = $fscanf(fp, "%d %d %d %d %d\n", m_itf.filter1_coef[2][0], m_itf.filter1_coef[2][1], m_itf.filter1_coef[2][2], m_itf.filter1_coef[2][3], m_itf.filter1_coef[2][4]);
+    count = $fscanf(fp, "%d %d %d %d %d\n", m_itf.filter1_coef[3][0], m_itf.filter1_coef[3][1], m_itf.filter1_coef[3][2], m_itf.filter1_coef[3][3], m_itf.filter1_coef[3][4]);
+    count = $fscanf(fp, "%d %d %d %d %d\n", m_itf.filter1_coef[4][0], m_itf.filter1_coef[4][1], m_itf.filter1_coef[4][2], m_itf.filter1_coef[4][3], m_itf.filter1_coef[4][4]);
     $fclose(fp);
   endfunction
 
@@ -53,10 +53,10 @@ class cls_apb;
 
     fp = $fopen(file_name, "r");
     count = $fscanf(fp, "%d %d %d %d %d\n", m_itf.filter2_coef[0][0], m_itf.filter2_coef[0][1], m_itf.filter2_coef[0][2], m_itf.filter2_coef[0][3], m_itf.filter2_coef[0][4]);
-    count = $fscanf(fp, "%d %d %d %d %d\n", m_itf.filter2_coef[0][0], m_itf.filter2_coef[1][1], m_itf.filter2_coef[1][2], m_itf.filter2_coef[1][3], m_itf.filter2_coef[1][4]);
-    count = $fscanf(fp, "%d %d %d %d %d\n", m_itf.filter2_coef[0][0], m_itf.filter2_coef[2][1], m_itf.filter2_coef[2][2], m_itf.filter2_coef[2][3], m_itf.filter2_coef[2][4]);
-    count = $fscanf(fp, "%d %d %d %d %d\n", m_itf.filter2_coef[0][0], m_itf.filter2_coef[3][1], m_itf.filter2_coef[3][2], m_itf.filter2_coef[3][3], m_itf.filter2_coef[3][4]);
-    count = $fscanf(fp, "%d %d %d %d %d\n", m_itf.filter2_coef[0][0], m_itf.filter2_coef[4][1], m_itf.filter2_coef[4][2], m_itf.filter2_coef[4][3], m_itf.filter2_coef[4][4]);
+    count = $fscanf(fp, "%d %d %d %d %d\n", m_itf.filter2_coef[1][0], m_itf.filter2_coef[1][1], m_itf.filter2_coef[1][2], m_itf.filter2_coef[1][3], m_itf.filter2_coef[1][4]);
+    count = $fscanf(fp, "%d %d %d %d %d\n", m_itf.filter2_coef[2][0], m_itf.filter2_coef[2][1], m_itf.filter2_coef[2][2], m_itf.filter2_coef[2][3], m_itf.filter2_coef[2][4]);
+    count = $fscanf(fp, "%d %d %d %d %d\n", m_itf.filter2_coef[3][0], m_itf.filter2_coef[3][1], m_itf.filter2_coef[3][2], m_itf.filter2_coef[3][3], m_itf.filter2_coef[3][4]);
+    count = $fscanf(fp, "%d %d %d %d %d\n", m_itf.filter2_coef[4][0], m_itf.filter2_coef[4][1], m_itf.filter2_coef[4][2], m_itf.filter2_coef[4][3], m_itf.filter2_coef[4][4]);
     $fclose(fp);
   endfunction
 endclass
