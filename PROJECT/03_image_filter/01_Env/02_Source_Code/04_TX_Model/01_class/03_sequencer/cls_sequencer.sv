@@ -69,9 +69,9 @@ class cls_sequencer;
 		int i_hsy
   );
     -> m_itf.evt_hs;
-		m_itf.i_hs = 1;
-		repeat(i_hsy)
-		  @(negedge m_itf.clk);
+    m_itf.i_hs = 1;
+    repeat(i_hsy)
+      @(negedge m_itf.clk);
     m_itf.i_hs = 0;
     repeat(i_hbp)
       send_pixel_dummy();

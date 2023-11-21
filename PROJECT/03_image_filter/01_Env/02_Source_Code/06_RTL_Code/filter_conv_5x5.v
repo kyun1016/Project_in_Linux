@@ -9,7 +9,6 @@ module filter_conv_5x5
   input                         clk     ,
   input                         rstn    ,
 
-  input                         i_en    ,
   input signed [COEF_WIDTH-1:0] i_coef00,
   input signed [COEF_WIDTH-1:0] i_coef01,
   input signed [COEF_WIDTH-1:0] i_coef02,
@@ -35,6 +34,7 @@ module filter_conv_5x5
   input signed [COEF_WIDTH-1:0] i_coef42,
   input signed [COEF_WIDTH-1:0] i_coef43,
   input signed [COEF_WIDTH-1:0] i_coef44,
+  input                         i_de    ,
   input        [DATA_WIDTH-1:0] i_x00   ,
   input        [DATA_WIDTH-1:0] i_x01   ,
   input        [DATA_WIDTH-1:0] i_x02   ,
@@ -60,6 +60,7 @@ module filter_conv_5x5
   input        [DATA_WIDTH-1:0] i_x42   ,
   input        [DATA_WIDTH-1:0] i_x43   ,
   input        [DATA_WIDTH-1:0] i_x44   ,
+  output reg                    o_de    ,
   output reg   [DATA_WIDTH-1:0] o_y      
 );
   wire signed [DATA_WIDTH:0] w_x00 = {1'b0, i_x00};
@@ -96,8 +97,15 @@ module filter_conv_5x5
 
   always @(posedge clk, negedge rstn) begin
     if(!rstn)
-      o_y <= 0;
-    else if (i_en)
+      o_de <= 1'b0;
+    else
+      o_de <= i_de;
+  end
+
+  always @(posedge clk, negedge rstn) begin
+    if(!rstn)
+      o_y <= 'b0;
+    else if (i_de)
       o_y <= w_conv[COEF_WIDTH+:DATA_WIDTH];
   end
 

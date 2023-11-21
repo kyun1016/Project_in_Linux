@@ -71,7 +71,9 @@ module tb_top
     @(posedge rstn_apb);
 
     c_sequencer.write_apb_all();
-
+    
+    repeat(100)
+      @(negedge clk);
     repeat(1)
       c_sequencer.send_frame(
         .i_vbp(VBP),
@@ -82,8 +84,8 @@ module tb_top
         .i_hsy(HSY)
       );
 
-    repeat(100000)
-      @(posedge clk);
+    repeat(10000)
+      @(negedge clk);
     $finish;
   end
 
