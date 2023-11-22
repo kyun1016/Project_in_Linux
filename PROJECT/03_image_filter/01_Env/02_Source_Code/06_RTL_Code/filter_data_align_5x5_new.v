@@ -3,9 +3,6 @@
 module filter_data_align_5x5_new
 #(
   parameter DATA_WIDTH     = 8 ,
-  parameter MEM_Y_WIDTH    = 4 ,
-  parameter MEM_U_WIDTH    = 2 ,
-  parameter MEM_V_WIDTH    = 2 ,
   parameter MEM_ADDR_WIDTH = 11
 )
 (
@@ -19,7 +16,7 @@ module filter_data_align_5x5_new
   input  [1:0]                i_mem_sel    ,
   input  [MEM_ADDR_WIDTH-1:0] i_mem_waddr  ,
   input  [MEM_ADDR_WIDTH-1:0] i_mem_raddr  ,
-  input  [3:0]                i_pad_ln_y   ,
+  input  [3:0]                i_pad_y      ,
   output                      o_de         ,
   output [DATA_WIDTH-1:0]     o_y00        ,
   output [DATA_WIDTH-1:0]     o_y01        ,
@@ -49,6 +46,12 @@ module filter_data_align_5x5_new
   output [DATA_WIDTH-1:0]     o_u          ,
   output [DATA_WIDTH-1:0]     o_v          
 );
+  //=============================================================
+  // Part 1. Define Parameters
+  //=============================================================
+  localparam
+    LINE_DLY  = 2,
+    PIXEL_DLY = 2;
   //============================================================
   // Part 1. Delay Data
   //============================================================
@@ -213,8 +216,8 @@ module filter_data_align_5x5_new
     endcase
   end
 
-  wire [DATA_WIDTH-1:0] w_aln_u = i_aln_ln_y[0] | i_aln_ln_y[3] ? w_mem_u1 : w_mem_u0;
-  wire [DATA_WIDTH-1:0] w_aln_v = i_aln_ln_y[0] | i_aln_ln_y[3] ? w_mem_v1 : w_mem_v0;
+  wire [DATA_WIDTH-1:0] w_aln_u = i_mem_sel[0] ? w_mem_u1 : w_mem_u0;
+  wire [DATA_WIDTH-1:0] w_aln_v = i_mem_sel[0] ? w_mem_v1 : w_mem_v0;
 
   //=============================================================
   // Part 4. Line Padding
@@ -227,43 +230,41 @@ module filter_data_align_5x5_new
 
   always @(*) begin
     case(1'b1)
-      i_pad_ln_y[0] : w_ln_pad_y0 = w_aln_y2;
-      i_pad_ln_y[1] : w_ln_pad_y0 = w_aln_y1;
-      default       : w_ln_pad_y0 = w_aln_y0;
+      i_pad_y[0] : w_ln_pad_y0 = w_aln_y2;
+      i_pad_y[1] : w_ln_pad_y0 = w_aln_y1;
+      default    : w_ln_pad_y0 = w_aln_y0;
     endcase
   end
   always @(*) begin
     case(1'b1)
-      i_pad_ln_y[0] : w_ln_pad_y1 = w_aln_y2;
-      default       : w_ln_pad_y1 = w_aln_y1;
+      i_pad_y[0] : w_ln_pad_y1 = w_aln_y2;
+      default    : w_ln_pad_y1 = w_aln_y1;
     endcase
   end
   always @(*) begin
     case(1'b1)
-      i_pad_ln_y[2] : w_ln_pad_y3 = w_aln_y2;
-      default       : w_ln_pad_y3 = w_aln_y3;
+      i_pad_y[2] : w_ln_pad_y3 = w_aln_y2;
+      default    : w_ln_pad_y3 = w_aln_y3;
     endcase
   end
   always @(*) begin
     case(1'b1)
-      i_pad_ln_y[2] : w_ln_pad_y4 = w_aln_y2;
-      i_pad_ln_y[3] : w_ln_pad_y4 = w_aln_y3;
-      default       : w_ln_pad_y4 = r_aln_y4;
+      i_pad_y[2] : w_ln_pad_y4 = w_aln_y2;
+      i_pad_y[3] : w_ln_pad_y4 = w_aln_y3;
+      default    : w_ln_pad_y4 = r_aln_y4;
     endcase
   end
 
   //=============================================================
   // Part 5. DE Shift
   //=============================================================
-  reg r_mem_de;
+  reg [PIXEL_DLY:0] r_mem_de;
   always @(posedge clk, negedge rstn) begin
     if(!rstn) begin
-      r_mem_de <= 1'b0;
-      o_de     <= 1'b0;
+      r_mem_de <= 'b0;
     end
     else begin
-      r_mem_de <= i_mem_de;
-      o_de     <= r_mem_de;
+      r_mem_de <= {r_mem_de[PIXEL_DLY-1:0], i_mem_ren};
     end
   end
 
@@ -350,7 +351,7 @@ module filter_data_align_5x5_new
       r_px_pad_y42 <= 'b0;
       r_px_pad_y43 <= 'b0;
     end
-    else if(i_mem_de | r_mem_de) begin
+    else if(i_mem_ren | r_mem_de) begin
       r_px_pad_y02 <= r_px_pad_y03;
       r_px_pad_y03 <= w_px_pad_y04;
       r_px_pad_y12 <= r_px_pad_y13;

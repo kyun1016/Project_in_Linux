@@ -3,8 +3,7 @@
 module filter_control
 #(
   parameter MEM_ADDR_WIDTH = 11,
-  parameter PAD_SIZE       = 2 ,
-  parameter MEM_NUM        = 2   // 2^2 = 4 (y memory count)
+  parameter PAD_SIZE       = 2 
 )
 (
   input                       clk          ,
@@ -12,7 +11,7 @@ module filter_control
   input                       i_vs         ,
   input                       i_hs         ,
   output                      o_mem_ren    ,
-  output [MEM_NUM-1:0]        o_mem_sel    ,
+  output [1:0]                o_mem_sel    ,
   output [MEM_ADDR_WIDTH-1:0] o_mem_waddr  ,
   output [MEM_ADDR_WIDTH-1:0] o_mem_raddr  ,
   output [PAD_SIZE*2-1:0]     o_pad_y      ,
@@ -114,7 +113,7 @@ module filter_control
       r_pad_y[i+PAD_SIZE] = r_cnt_v == (VBP+LINE_DLY+VAC+1+i);
   end
 
-  assign o_pad_y = r_pad_y == (VBP+LINE_DLY+1);
+  assign o_pad_y = r_pad_y;
   /* Before
   assign o_pad_ln_y[0] = r_cnt_v == (VBP+LINE_DLY+1);
   assign o_pad_ln_y[1] = r_cnt_v == (VBP+LINE_DLY+2);

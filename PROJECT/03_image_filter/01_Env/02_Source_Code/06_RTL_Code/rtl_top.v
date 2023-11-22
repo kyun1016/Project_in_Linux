@@ -311,6 +311,50 @@ module rtl_top
     .o_u      (w_filter1_u     ), // [DATA_WIDTH-1:0] 
     .o_v      (w_filter1_v     )  // [DATA_WIDTH-1:0] 
   );
+  filter_top_5x5_new
+  #(
+    .DATA_WIDTH(DATA_WIDTH),
+    .COEF_WIDTH(COEF_WIDTH),
+    .RL        (FILTER1_RL)
+  )
+  u_denoise_filter2
+  (
+    .clk      (clk             ),
+    .rstn     (rstn            ),
+                        
+    .i_bypass (w_filter1_bypass),
+    .i_coef00 (w_filter1_coef00), // [COEF_WIDTH-1:0] 
+    .i_coef01 (w_filter1_coef01), // [COEF_WIDTH-1:0] 
+    .i_coef02 (w_filter1_coef02), // [COEF_WIDTH-1:0] 
+    .i_coef03 (w_filter1_coef03), // [COEF_WIDTH-1:0] 
+    .i_coef04 (w_filter1_coef04), // [COEF_WIDTH-1:0] 
+    .i_coef10 (w_filter1_coef10), // [COEF_WIDTH-1:0] 
+    .i_coef11 (w_filter1_coef11), // [COEF_WIDTH-1:0] 
+    .i_coef12 (w_filter1_coef12), // [COEF_WIDTH-1:0] 
+    .i_coef13 (w_filter1_coef13), // [COEF_WIDTH-1:0] 
+    .i_coef14 (w_filter1_coef14), // [COEF_WIDTH-1:0] 
+    .i_coef20 (w_filter1_coef20), // [COEF_WIDTH-1:0] 
+    .i_coef21 (w_filter1_coef21), // [COEF_WIDTH-1:0] 
+    .i_coef22 (w_filter1_coef22), // [COEF_WIDTH-1:0] 
+    .i_coef23 (w_filter1_coef23), // [COEF_WIDTH-1:0] 
+    .i_coef24 (w_filter1_coef24), // [COEF_WIDTH-1:0] 
+    .i_coef30 (w_filter1_coef30), // [COEF_WIDTH-1:0] 
+    .i_coef31 (w_filter1_coef31), // [COEF_WIDTH-1:0] 
+    .i_coef32 (w_filter1_coef32), // [COEF_WIDTH-1:0] 
+    .i_coef33 (w_filter1_coef33), // [COEF_WIDTH-1:0] 
+    .i_coef34 (w_filter1_coef34), // [COEF_WIDTH-1:0] 
+    .i_coef40 (w_filter1_coef40), // [COEF_WIDTH-1:0] 
+    .i_coef41 (w_filter1_coef41), // [COEF_WIDTH-1:0] 
+    .i_coef42 (w_filter1_coef42), // [COEF_WIDTH-1:0] 
+    .i_coef43 (w_filter1_coef43), // [COEF_WIDTH-1:0] 
+    .i_coef44 (w_filter1_coef44), // [COEF_WIDTH-1:0] 
+    .i_vs     (w_csc_vs        ), //                  
+    .i_hs     (w_csc_hs        ), //                  
+    .i_de     (w_csc_de        ), //                  
+    .i_y      (w_csc_y         ), // [DATA_WIDTH-1:0] 
+    .i_u      (w_csc_u         ), // [DATA_WIDTH-1:0] 
+    .i_v      (w_csc_v         )  // [DATA_WIDTH-1:0] 
+  );
 
   wire       w_filter2_vs;
   wire       w_filter2_hs;
