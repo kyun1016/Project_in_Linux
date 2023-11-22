@@ -2,8 +2,8 @@
 
 module filter_data_align_5x5_new
 #(
-  parameter DATA_WIDTH     = 8 ,
-  parameter MEM_ADDR_WIDTH = 11
+  parameter MEM_ADDR_WIDTH = 11,
+  parameter DATA_WIDTH     = 8 
 )
 (
   input                       clk          ,
@@ -91,7 +91,12 @@ module filter_data_align_5x5_new
   wire w_mem_wen_y1 = r_de & (i_mem_sel == 2'b01);
   wire w_mem_wen_y2 = r_de & (i_mem_sel == 2'b10);
   wire w_mem_wen_y3 = r_de & (i_mem_sel == 2'b11);
-  simple_dual_one_clock u_mem_y0(
+  simple_dual_one_clock 
+  #(
+    .DATA_WIDTH(DATA_WIDTH    ),
+    .ADDR_WIDTH(MEM_ADDR_WIDTH)
+  )
+  u_mem_y0(
     .clk     (clk         ),
     .i_a_en  (w_mem_wen_y0),
     .i_b_en  (i_mem_ren   ),
@@ -101,7 +106,12 @@ module filter_data_align_5x5_new
     .i_a_data(r_y         ),
     .o_b_data(w_mem_y0    )
   );
-  simple_dual_one_clock u_mem_y1(
+  simple_dual_one_clock
+  #(
+    .DATA_WIDTH(DATA_WIDTH    ),
+    .ADDR_WIDTH(MEM_ADDR_WIDTH)
+  )
+  u_mem_y1(
     .clk     (clk         ),
     .i_a_en  (w_mem_wen_y1),
     .i_b_en  (i_mem_ren   ),
@@ -111,7 +121,12 @@ module filter_data_align_5x5_new
     .i_a_data(r_y         ),
     .o_b_data(w_mem_y1    )
   );
-  simple_dual_one_clock u_mem_y2(
+  simple_dual_one_clock
+  #(
+    .DATA_WIDTH(DATA_WIDTH    ),
+    .ADDR_WIDTH(MEM_ADDR_WIDTH)
+  )
+  u_mem_y2(
     .clk     (clk         ),
     .i_a_en  (w_mem_wen_y2),
     .i_b_en  (i_mem_ren   ),
@@ -121,7 +136,12 @@ module filter_data_align_5x5_new
     .i_a_data(r_y         ),
     .o_b_data(w_mem_y2    )
   );
-  simple_dual_one_clock u_mem_y3(
+  simple_dual_one_clock
+  #(
+    .DATA_WIDTH(DATA_WIDTH    ),
+    .ADDR_WIDTH(MEM_ADDR_WIDTH)
+  )
+  u_mem_y3(
     .clk     (clk         ),
     .i_a_en  (w_mem_wen_y3),
     .i_b_en  (i_mem_ren   ),
@@ -135,7 +155,12 @@ module filter_data_align_5x5_new
   wire [DATA_WIDTH-1:0] w_mem_u1;
   wire w_mem_wen_u0 = r_de & (i_mem_sel[0] == 1'b0);
   wire w_mem_wen_u1 = r_de & (i_mem_sel[0] == 1'b1);
-  simple_dual_one_clock u_mem_u0(
+  simple_dual_one_clock
+  #(
+    .DATA_WIDTH(DATA_WIDTH    ),
+    .ADDR_WIDTH(MEM_ADDR_WIDTH)
+  )
+  u_mem_u0(
     .clk     (clk         ),
     .i_a_en  (w_mem_wen_u0),
     .i_b_en  (i_mem_ren   ),
@@ -145,7 +170,12 @@ module filter_data_align_5x5_new
     .i_a_data(r_u         ),
     .o_b_data(w_mem_u0    )
   );
-  simple_dual_one_clock u_mem_u1(
+  simple_dual_one_clock
+  #(
+    .DATA_WIDTH(DATA_WIDTH    ),
+    .ADDR_WIDTH(MEM_ADDR_WIDTH)
+  )
+  u_mem_u1(
     .clk     (clk         ),
     .i_a_en  (w_mem_wen_u1),
     .i_b_en  (i_mem_ren   ),
@@ -159,7 +189,12 @@ module filter_data_align_5x5_new
   wire [DATA_WIDTH-1:0] w_mem_v1;
   wire w_mem_wen_v0 = w_mem_wen_u0;
   wire w_mem_wen_v1 = w_mem_wen_u1;
-  simple_dual_one_clock u_mem_v0(
+  simple_dual_one_clock
+  #(
+    .DATA_WIDTH(DATA_WIDTH    ),
+    .ADDR_WIDTH(MEM_ADDR_WIDTH)
+  )
+  u_mem_v0(
     .clk     (clk         ),
     .i_a_en  (w_mem_wen_v0),
     .i_b_en  (i_mem_ren   ),
@@ -169,7 +204,12 @@ module filter_data_align_5x5_new
     .i_a_data(r_v         ),
     .o_b_data(w_mem_v0    )
   );
-  simple_dual_one_clock u_mem_v1(
+  simple_dual_one_clock
+  #(
+    .DATA_WIDTH(DATA_WIDTH    ),
+    .ADDR_WIDTH(MEM_ADDR_WIDTH)
+  )
+  u_mem_v1(
     .clk     (clk         ),
     .i_a_en  (w_mem_wen_v1),
     .i_b_en  (i_mem_ren   ),

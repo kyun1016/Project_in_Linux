@@ -5,6 +5,7 @@ module rtl_top
   parameter SEL_WIDTH       = 4 , 
   parameter APB_ADDR_WIDTH  = 10, // maximum width 32 bits
   parameter APB_DATA_WIDTH  = 32, // 8/16/32 bits wide
+  parameter MEM_ADDR_WIDTH  = 11,
   parameter DATA_WIDTH      = 8 , // R/G/B
   parameter COEF_WIDTH      = 10, 
   parameter BIAS_WIDTH      = 8 ,
@@ -261,11 +262,12 @@ module rtl_top
   wire [7:0] w_filter1_y;
   wire [7:0] w_filter1_u;
   wire [7:0] w_filter1_v;
-  filter_top_5x5 
+  filter_top_5x5_new 
   #(
-    .DATA_WIDTH(DATA_WIDTH),
-    .COEF_WIDTH(COEF_WIDTH),
-    .RL        (FILTER1_RL)
+    .MEM_ADDR_WIDTH(MEM_ADDR_WIDTH),
+    .DATA_WIDTH    (DATA_WIDTH    ),
+    .COEF_WIDTH    (COEF_WIDTH    ),
+    .RL            (FILTER2_RL    )
   )
   u_denoise_filter
   (
@@ -311,7 +313,7 @@ module rtl_top
     .o_u      (w_filter1_u     ), // [DATA_WIDTH-1:0] 
     .o_v      (w_filter1_v     )  // [DATA_WIDTH-1:0] 
   );
-  filter_top_5x5_new
+  filter_top_5x5
   #(
     .DATA_WIDTH(DATA_WIDTH),
     .COEF_WIDTH(COEF_WIDTH),
@@ -362,7 +364,14 @@ module rtl_top
   wire [7:0] w_filter2_y;
   wire [7:0] w_filter2_u;
   wire [7:0] w_filter2_v;
-  filter_top_5x5 u_sharpness_filter
+  filter_top_5x5_new
+  #(
+    .MEM_ADDR_WIDTH(MEM_ADDR_WIDTH),
+    .DATA_WIDTH    (DATA_WIDTH    ),
+    .COEF_WIDTH    (COEF_WIDTH    ),
+    .RL            (FILTER2_RL    )
+  )
+  u_sharpness_filter
   (
     .clk      (clk             ),
     .rstn     (rstn            ),

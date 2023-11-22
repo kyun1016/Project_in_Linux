@@ -2,12 +2,9 @@
 
 module filter_top_5x5_new
 #(
+  parameter MEM_ADDR_WIDTH = 11,
   parameter DATA_WIDTH     = 8 ,
   parameter COEF_WIDTH     = 10,
-  parameter MEM_Y_WIDTH    = 4 ,
-  parameter MEM_U_WIDTH    = 2 ,
-  parameter MEM_V_WIDTH    = 2 ,
-  parameter MEM_ADDR_WIDTH = 11,
   parameter RL             = 8
 )
 (
@@ -59,6 +56,8 @@ module filter_top_5x5_new
   wire [MEM_ADDR_WIDTH-1:0] w_mem_waddr;
   wire [MEM_ADDR_WIDTH-1:0] w_mem_raddr;
   wire [3:0]                w_pad_y    ;
+  wire                      w_vs       ;
+  wire                      w_hs       ;
   filter_control
   #(
     .MEM_ADDR_WIDTH(MEM_ADDR_WIDTH),
@@ -75,8 +74,8 @@ module filter_top_5x5_new
     .o_mem_waddr  (w_mem_waddr  ),
     .o_mem_raddr  (w_mem_raddr  ),
     .o_pad_y      (w_pad_y      ),
-    .o_vs         (o_vs         ),
-    .o_hs         (o_hs         ) 
+    .o_vs         (w_vs         ),
+    .o_hs         (w_hs         ) 
   );
 
   wire                         w_aln_de;
@@ -105,6 +104,8 @@ module filter_top_5x5_new
   wire signed [DATA_WIDTH-1:0] w_y42;
   wire signed [DATA_WIDTH-1:0] w_y43;
   wire signed [DATA_WIDTH-1:0] w_y44;
+  wire signed [DATA_WIDTH-1:0] w_u  ;
+  wire signed [DATA_WIDTH-1:0] w_v  ;
   filter_data_align_5x5_new 
   #(
     .DATA_WIDTH    (DATA_WIDTH    ),
@@ -149,8 +150,8 @@ module filter_top_5x5_new
     .o_y42        (w_y42        ),
     .o_y43        (w_y43        ),
     .o_y44        (w_y44        ),
-    .o_u          (o_u          ),
-    .o_v          (o_v          )
+    .o_u          (w_u          ),
+    .o_v          (w_v          )
   );
   filter_conv_5x5 u_conv (
     .clk     (clk      ),
@@ -210,4 +211,37 @@ module filter_top_5x5_new
     .o_y     (o_y      ) 
   );
 
+  //=============================================================
+  // Delay V-Sync, H-Sync, U, V Signal
+  //=============================================================
+  reg r_vs_dly;
+  reg r_hs_dly;
+  always @(posedge clk, negedge rstn) begin
+    if(!rstn) begin
+      r_vs_dly <= 1'b0;
+      r_hs_dly <= 1'b0;
+    end
+    else begin
+      r_vs_dly <= w_vs;
+      r_hs_dly <= w_hs;
+    end
+  end
+
+  reg [DATA_WIDTH-1:0] r_u_dly;
+  reg [DATA_WIDTH-1:0] r_v_dly;
+  always @(posedge clk, negedge rstn) begin
+    if(!rstn) begin
+      r_u_dly <= 1'b0;
+      r_v_dly <= 1'b0;
+    end
+    else if (w_aln_de) begin
+      r_u_dly <= w_u;
+      r_v_dly <= w_v;
+    end
+  end
+
+  assign o_vs = r_vs_dly;
+  assign o_hs = r_hs_dly;
+  assign o_u  = r_u_dly ;
+  assign o_v  = r_v_dly ;
 endmodule
