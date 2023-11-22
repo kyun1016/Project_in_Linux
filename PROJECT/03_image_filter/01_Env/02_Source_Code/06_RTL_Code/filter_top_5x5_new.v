@@ -212,7 +212,7 @@ module filter_top_5x5_new
   );
 
   //=============================================================
-  // Delay V-Sync, H-Sync, U, V Signal
+  // Part 2. Delay V-Sync, H-Sync, U, V Signal
   //=============================================================
   reg r_vs_dly;
   reg r_hs_dly;
