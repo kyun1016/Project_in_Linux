@@ -1,6 +1,6 @@
 // ./list_rtl.f
 
-module filter_data_align_5x5
+module filter_data_align_5x5_new
 #(
   parameter DATA_WIDTH     = 8 ,
   parameter MEM_Y_WIDTH    = 4 ,
@@ -9,51 +9,45 @@ module filter_data_align_5x5
   parameter MEM_ADDR_WIDTH = 11
 )
 (
-  input                           clk          ,
-  input                           rstn         ,
-  input                           i_input_de   ,
-  input      [DATA_WIDTH-1:0]     i_y          ,
-  input      [DATA_WIDTH-1:0]     i_u          ,
-  input      [DATA_WIDTH-1:0]     i_v          ,
-  input                           i_mem_de     ,
-  input      [MEM_ADDR_WIDTH-1:0] i_mem_waddr  ,
-  input      [MEM_ADDR_WIDTH-1:0] i_mem_raddr  ,
-  input      [MEM_Y_WIDTH-1:0]    i_mem_y_wen  ,
-  input                           i_mem_y_ren  ,
-  input      [MEM_U_WIDTH-1:0]    i_mem_u_wen  ,
-  input      [MEM_U_WIDTH-1:0]    i_mem_u_ren  ,
-  input      [MEM_V_WIDTH-1:0]    i_mem_v_wen  ,
-  input      [MEM_V_WIDTH-1:0]    i_mem_v_ren  ,
-  input      [3:0]                i_aln_ln_y   ,
-  input      [3:0]                i_pad_ln_y   ,
-  output reg                      o_de         ,
-  output     [DATA_WIDTH-1:0]     o_y00        ,
-  output     [DATA_WIDTH-1:0]     o_y01        ,
-  output     [DATA_WIDTH-1:0]     o_y02        ,
-  output     [DATA_WIDTH-1:0]     o_y03        ,
-  output     [DATA_WIDTH-1:0]     o_y04        ,
-  output     [DATA_WIDTH-1:0]     o_y10        ,
-  output     [DATA_WIDTH-1:0]     o_y11        ,
-  output     [DATA_WIDTH-1:0]     o_y12        ,
-  output     [DATA_WIDTH-1:0]     o_y13        ,
-  output     [DATA_WIDTH-1:0]     o_y14        ,
-  output     [DATA_WIDTH-1:0]     o_y20        ,
-  output     [DATA_WIDTH-1:0]     o_y21        ,
-  output     [DATA_WIDTH-1:0]     o_y22        ,
-  output     [DATA_WIDTH-1:0]     o_y23        ,
-  output     [DATA_WIDTH-1:0]     o_y24        ,
-  output     [DATA_WIDTH-1:0]     o_y30        ,
-  output     [DATA_WIDTH-1:0]     o_y31        ,
-  output     [DATA_WIDTH-1:0]     o_y32        ,
-  output     [DATA_WIDTH-1:0]     o_y33        ,
-  output     [DATA_WIDTH-1:0]     o_y34        ,
-  output     [DATA_WIDTH-1:0]     o_y40        ,
-  output     [DATA_WIDTH-1:0]     o_y41        ,
-  output     [DATA_WIDTH-1:0]     o_y42        ,
-  output     [DATA_WIDTH-1:0]     o_y43        ,
-  output     [DATA_WIDTH-1:0]     o_y44        ,
-  output     [DATA_WIDTH-1:0]     o_u          ,
-  output     [DATA_WIDTH-1:0]     o_v          
+  input                       clk          ,
+  input                       rstn         ,
+  input                       i_de         ,
+  input  [DATA_WIDTH-1:0]     i_y          ,
+  input  [DATA_WIDTH-1:0]     i_u          ,
+  input  [DATA_WIDTH-1:0]     i_v          ,
+  input                       i_mem_ren    ,
+  input  [1:0]                i_mem_sel    ,
+  input  [MEM_ADDR_WIDTH-1:0] i_mem_waddr  ,
+  input  [MEM_ADDR_WIDTH-1:0] i_mem_raddr  ,
+  input  [3:0]                i_pad_ln_y   ,
+  output                      o_de         ,
+  output [DATA_WIDTH-1:0]     o_y00        ,
+  output [DATA_WIDTH-1:0]     o_y01        ,
+  output [DATA_WIDTH-1:0]     o_y02        ,
+  output [DATA_WIDTH-1:0]     o_y03        ,
+  output [DATA_WIDTH-1:0]     o_y04        ,
+  output [DATA_WIDTH-1:0]     o_y10        ,
+  output [DATA_WIDTH-1:0]     o_y11        ,
+  output [DATA_WIDTH-1:0]     o_y12        ,
+  output [DATA_WIDTH-1:0]     o_y13        ,
+  output [DATA_WIDTH-1:0]     o_y14        ,
+  output [DATA_WIDTH-1:0]     o_y20        ,
+  output [DATA_WIDTH-1:0]     o_y21        ,
+  output [DATA_WIDTH-1:0]     o_y22        ,
+  output [DATA_WIDTH-1:0]     o_y23        ,
+  output [DATA_WIDTH-1:0]     o_y24        ,
+  output [DATA_WIDTH-1:0]     o_y30        ,
+  output [DATA_WIDTH-1:0]     o_y31        ,
+  output [DATA_WIDTH-1:0]     o_y32        ,
+  output [DATA_WIDTH-1:0]     o_y33        ,
+  output [DATA_WIDTH-1:0]     o_y34        ,
+  output [DATA_WIDTH-1:0]     o_y40        ,
+  output [DATA_WIDTH-1:0]     o_y41        ,
+  output [DATA_WIDTH-1:0]     o_y42        ,
+  output [DATA_WIDTH-1:0]     o_y43        ,
+  output [DATA_WIDTH-1:0]     o_y44        ,
+  output [DATA_WIDTH-1:0]     o_u          ,
+  output [DATA_WIDTH-1:0]     o_v          
 );
   //============================================================
   // Part 1. Delay Data
@@ -68,11 +62,19 @@ module filter_data_align_5x5
       r_u <= 'b0;
       r_v <= 'b0;
     end
-    else if(i_input_de) begin
+    else if(i_de) begin
       r_y <= i_y;
       r_u <= i_u;
       r_v <= i_v;
     end
+  end
+
+  reg r_de;
+  always @(posedge clk, negedge rstn) begin
+    if(!rstn)
+      r_de <= 1'b0;
+    else
+      r_de <= i_de;
   end
 
   //============================================================
@@ -83,89 +85,89 @@ module filter_data_align_5x5
   wire [DATA_WIDTH-1:0] w_mem_y2;
   wire [DATA_WIDTH-1:0] w_mem_y3;
   simple_dual_one_clock u_mem_y0(
-    .clk     (clk           ),
-    .i_a_en  (i_mem_y_wen[0]),
-    .i_b_en  (i_mem_y_ren   ),
-    .i_a_we  (i_mem_y_wen[0]),
-    .i_a_addr(i_mem_waddr   ),
-    .i_b_addr(i_mem_raddr   ),
-    .i_a_data(r_y           ),
-    .o_b_data(w_mem_y0      )
+    .clk     (clk                      ),
+    .i_a_en  (r_de & i_mem_sel == 2'b00),
+    .i_b_en  (i_mem_ren                ),
+    .i_a_we  (r_de & i_mem_sel == 2'b00),
+    .i_a_addr(i_mem_waddr              ),
+    .i_b_addr(i_mem_raddr              ),
+    .i_a_data(r_y                      ),
+    .o_b_data(w_mem_y0                 )
   );
   simple_dual_one_clock u_mem_y1(
-    .clk     (clk           ),
-    .i_a_en  (i_mem_y_wen[1]),
-    .i_b_en  (i_mem_y_ren   ),
-    .i_a_we  (i_mem_y_wen[1]),
-    .i_a_addr(i_mem_waddr   ),
-    .i_b_addr(i_mem_raddr   ),
-    .i_a_data(r_y           ),
-    .o_b_data(w_mem_y1      )
+    .clk     (clk                      ),
+    .i_a_en  (r_de & i_mem_sel == 2'b01),
+    .i_b_en  (i_mem_ren                ),
+    .i_a_we  (r_de & i_mem_sel == 2'b01),
+    .i_a_addr(i_mem_waddr              ),
+    .i_b_addr(i_mem_raddr              ),
+    .i_a_data(r_y                      ),
+    .o_b_data(w_mem_y1                 )
   );
   simple_dual_one_clock u_mem_y2(
-    .clk     (clk           ),
-    .i_a_en  (i_mem_y_wen[2]),
-    .i_b_en  (i_mem_y_ren   ),
-    .i_a_we  (i_mem_y_wen[2]),
-    .i_a_addr(i_mem_waddr   ),
-    .i_b_addr(i_mem_raddr   ),
-    .i_a_data(r_y           ),
-    .o_b_data(w_mem_y2      )
+    .clk     (clk                      ),
+    .i_a_en  (r_de & i_mem_sel == 2'b10),
+    .i_b_en  (i_mem_ren                ),
+    .i_a_we  (r_de & i_mem_sel == 2'b10),
+    .i_a_addr(i_mem_waddr              ),
+    .i_b_addr(i_mem_raddr              ),
+    .i_a_data(r_y                      ),
+    .o_b_data(w_mem_y2                 )
   );
   simple_dual_one_clock u_mem_y3(
-    .clk     (clk           ),
-    .i_a_en  (i_mem_y_wen[3]),
-    .i_b_en  (i_mem_y_ren   ),
-    .i_a_we  (i_mem_y_wen[3]),
-    .i_a_addr(i_mem_waddr   ),
-    .i_b_addr(i_mem_raddr   ),
-    .i_a_data(r_y           ),
-    .o_b_data(w_mem_y3      )
+    .clk     (clk                      ),
+    .i_a_en  (r_de & i_mem_sel == 2'b11),
+    .i_b_en  (i_mem_ren                ),
+    .i_a_we  (r_de & i_mem_sel == 2'b11),
+    .i_a_addr(i_mem_waddr              ),
+    .i_b_addr(i_mem_raddr              ),
+    .i_a_data(r_y                      ),
+    .o_b_data(w_mem_y3                 )
   );
 
   wire [DATA_WIDTH-1:0] w_mem_u0;
   wire [DATA_WIDTH-1:0] w_mem_u1;
   simple_dual_one_clock u_mem_u0(
-    .clk     (clk           ),
-    .i_a_en  (i_mem_u_wen[0]),
-    .i_b_en  (i_mem_u_ren[0]),
-    .i_a_we  (i_mem_u_wen[0]),
-    .i_a_addr(i_mem_waddr   ),
-    .i_b_addr(i_mem_raddr   ),
-    .i_a_data(r_u           ),
-    .o_b_data(w_mem_u0      )
+    .clk     (clk                        ),
+    .i_a_en  (r_de & i_mem_sel[0] == 1'b0),
+    .i_b_en  (i_mem_ren                  ),
+    .i_a_we  (r_de & i_mem_sel[0] == 1'b0),
+    .i_a_addr(i_mem_waddr                ),
+    .i_b_addr(i_mem_raddr                ),
+    .i_a_data(r_u                        ),
+    .o_b_data(w_mem_u0                   )
   );
   simple_dual_one_clock u_mem_u1(
-    .clk     (clk           ),
-    .i_a_en  (i_mem_u_wen[1]),
-    .i_b_en  (i_mem_u_ren[1]),
-    .i_a_we  (i_mem_u_wen[1]),
-    .i_a_addr(i_mem_waddr   ),
-    .i_b_addr(i_mem_raddr   ),
-    .i_a_data(r_u           ),
-    .o_b_data(w_mem_u1      )
+    .clk     (clk                        ),
+    .i_a_en  (r_de & i_mem_sel[0] == 1'b1),
+    .i_b_en  (i_mem_ren                  ),
+    .i_a_we  (r_de & i_mem_sel[0] == 1'b1),
+    .i_a_addr(i_mem_waddr                ),
+    .i_b_addr(i_mem_raddr                ),
+    .i_a_data(r_u                        ),
+    .o_b_data(w_mem_u1                   )
   );
   wire [DATA_WIDTH-1:0] w_mem_v0;
   wire [DATA_WIDTH-1:0] w_mem_v1;
   simple_dual_one_clock u_mem_v0(
-    .clk     (clk           ),
-    .i_a_en  (i_mem_v_wen[0]),
-    .i_b_en  (i_mem_v_ren[0]),
-    .i_a_we  (i_mem_v_wen[0]),
-    .i_a_addr(i_mem_waddr   ),
-    .i_b_addr(i_mem_raddr   ),
-    .i_a_data(r_v           ),
-    .o_b_data(w_mem_v0      )
+    .clk     (clk                        ),
+    .i_a_en  (r_de & i_mem_sel[0] == 1'b0),
+    .i_b_en  (i_mem_ren                  ),
+    .i_a_we  (r_de & i_mem_sel[0] == 1'b0),
+    .i_a_addr(i_mem_waddr                ),
+    .i_b_addr(i_mem_raddr                ),
+    .i_a_data(r_v                        ),
+    .o_b_data(w_mem_v0                   )
   );
   simple_dual_one_clock u_mem_v1(
-    .clk     (clk           ),
-    .i_a_en  (i_mem_v_wen[1]),
-    .i_b_en  (i_mem_v_ren[1]),
-    .i_a_we  (i_mem_v_wen[1]),
-    .i_a_addr(i_mem_waddr   ),
-    .i_b_addr(i_mem_raddr   ),
-    .i_a_data(r_v           ),
-    .o_b_data(w_mem_v1      )
+    .clk     (clk                        ),
+    .i_a_en  (r_de & i_mem_sel[0] == 1'b1),
+    .i_b_en  (i_mem_ren                  ),
+    .i_a_we  (r_de & i_mem_sel[0] == 1'b1),
+    .i_a_addr(i_mem_waddr                ),
+    .i_b_addr(i_mem_raddr                ),
+    .i_a_data(r_v                        ),
+    .o_b_data(w_mem_v1                   )
   );
 
   //=============================================================
@@ -175,39 +177,39 @@ module filter_data_align_5x5
   reg  [DATA_WIDTH-1:0] w_aln_y1;
   reg  [DATA_WIDTH-1:0] w_aln_y2;
   reg  [DATA_WIDTH-1:0] w_aln_y3;
-  wire [DATA_WIDTH-1:0] r_aln_y4 = r_y;  
+  wire [DATA_WIDTH-1:0] r_aln_y4 = r_y;
   always @(*) begin
-    case (1'b1)
-      i_aln_ln_y[0]: begin
-                       w_aln_y0 = w_mem_y0;
-                       w_aln_y1 = w_mem_y1;
-                       w_aln_y2 = w_mem_y2;
-                       w_aln_y3 = w_mem_y3;
-                     end
-      i_aln_ln_y[1]: begin
-                       w_aln_y0 = w_mem_y1;
-                       w_aln_y1 = w_mem_y2;
-                       w_aln_y2 = w_mem_y3;
-                       w_aln_y3 = w_mem_y0;
-                     end
-      i_aln_ln_y[2]: begin
-                       w_aln_y0 = w_mem_y2;
-                       w_aln_y1 = w_mem_y3;
-                       w_aln_y2 = w_mem_y0;
-                       w_aln_y3 = w_mem_y1;
-                     end
-      i_aln_ln_y[3]: begin
-                       w_aln_y0 = w_mem_y3;
-                       w_aln_y1 = w_mem_y0;
-                       w_aln_y2 = w_mem_y1;
-                       w_aln_y3 = w_mem_y2;
-                     end
-      default:       begin
-                       w_aln_y0 = w_mem_y0;
-                       w_aln_y1 = w_mem_y1;
-                       w_aln_y2 = w_mem_y2;
-                       w_aln_y3 = w_mem_y3;
-                     end
+    case (i_mem_sel)
+      2'b00 : begin
+                w_aln_y0 = w_mem_y0;
+                w_aln_y1 = w_mem_y1;
+                w_aln_y2 = w_mem_y2;
+                w_aln_y3 = w_mem_y3;
+              end
+      2'b01 : begin
+                w_aln_y0 = w_mem_y1;
+                w_aln_y1 = w_mem_y2;
+                w_aln_y2 = w_mem_y3;
+                w_aln_y3 = w_mem_y0;
+              end
+      2'b10 : begin
+                w_aln_y0 = w_mem_y2;
+                w_aln_y1 = w_mem_y3;
+                w_aln_y2 = w_mem_y0;
+                w_aln_y3 = w_mem_y1;
+              end
+      2'b11 : begin
+                w_aln_y0 = w_mem_y3;
+                w_aln_y1 = w_mem_y0;
+                w_aln_y2 = w_mem_y1;
+                w_aln_y3 = w_mem_y2;
+              end
+      default:begin
+                w_aln_y0 = w_mem_y0;
+                w_aln_y1 = w_mem_y1;
+                w_aln_y2 = w_mem_y2;
+                w_aln_y3 = w_mem_y3;
+              end
     endcase
   end
 

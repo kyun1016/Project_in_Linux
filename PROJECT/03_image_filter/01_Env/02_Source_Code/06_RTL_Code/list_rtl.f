@@ -9,6 +9,11 @@ filter_data_align_5x5.v
 filter_conv_5x5.v
 filter_fsm.v
 filter_top_5x5.v
+
+// new arch test
+filter_control.v
+filter_data_align_5x5_new.v
+filter_top_5x5_new.v
 rtl_top.v
 
 
