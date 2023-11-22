@@ -390,6 +390,28 @@ module filter_data_align_5x5
   assign o_y42 = r_px_pad_y42;
   assign o_y43 = r_px_pad_y43;
   assign o_y44 = w_px_pad_y44;
-  assign o_u   = w_aln_u;
-  assign o_v   = w_aln_v;
+
+  //=============================================================
+  // Part 8. U, V Data Delay
+  //=============================================================
+  reg [DATA_WIDTH-1:0] r_dly_u0;
+  reg [DATA_WIDTH-1:0] r_dly_u1;
+  reg [DATA_WIDTH-1:0] r_dly_v0;
+  reg [DATA_WIDTH-1:0] r_dly_v1;
+  always @(posedge clk, negedge rstn) begin
+    if(!rstn) begin
+      r_dly_u0 <= 'b0;
+      r_dly_u1 <= 'b0;
+      r_dly_v0 <= 'b0;
+      r_dly_v1 <= 'b0;
+    end
+    else if (r_mem_de) begin
+      r_dly_u0 <= w_aln_u;
+      r_dly_u1 <= r_dly_u0;
+      r_dly_v0 <= w_aln_v;
+      r_dly_v1 <= r_dly_v0;
+    end
+  end
+  assign o_u = r_dly_u1;
+  assign o_v = r_dly_v1;
 endmodule

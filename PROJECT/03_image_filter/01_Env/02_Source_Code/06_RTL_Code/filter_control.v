@@ -86,13 +86,11 @@ module filter_control
   always @(posedge clk, negedge rstn) begin
     if(!rstn)
       r_de <= 1'b0;
-    else if(r_cnt_h == PIXEL_DLY+HBP+HAC)
+    else if(r_cnt_h == HBP+HAC)
       r_de <= 1'b0;
-    else if((r_cnt_v > (VBP+LINE_DLY)) & (r_cnt_v < (VBP+LINE_DLY+VAC+3)) & r_cnt_h == PIXEL_DLY)
+    else if((r_cnt_v > (VBP+LINE_DLY)) & (r_cnt_v < (VBP+LINE_DLY+VAC+3)) & r_cnt_h == HBP)
       r_de <= 1'b1;
   end
-
-
 
   assign o_vs      = r_vs[LINE_DLY];
   assign o_hs      = r_hs;
@@ -100,7 +98,7 @@ module filter_control
   //=============================================================
   // Part 4. Output Control
   //=============================================================
-  assign o_mem_sel     = r_cnt_h[1:0];
+  assign o_mem_sel     = r_cnt_v[1:0];
   assign o_mem_raddr   = r_cnt_h[0+:MEM_ADDR_WIDTH] - HBP;
   assign o_mem_waddr   = o_mem_raddr - 1;
 

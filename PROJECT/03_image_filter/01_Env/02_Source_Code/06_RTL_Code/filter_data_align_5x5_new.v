@@ -87,90 +87,97 @@ module filter_data_align_5x5_new
   wire [DATA_WIDTH-1:0] w_mem_y1;
   wire [DATA_WIDTH-1:0] w_mem_y2;
   wire [DATA_WIDTH-1:0] w_mem_y3;
+  wire w_mem_wen_y0 = r_de & (i_mem_sel == 2'b00);
+  wire w_mem_wen_y1 = r_de & (i_mem_sel == 2'b01);
+  wire w_mem_wen_y2 = r_de & (i_mem_sel == 2'b10);
+  wire w_mem_wen_y3 = r_de & (i_mem_sel == 2'b11);
   simple_dual_one_clock u_mem_y0(
-    .clk     (clk                      ),
-    .i_a_en  (r_de & i_mem_sel == 2'b00),
-    .i_b_en  (i_mem_ren                ),
-    .i_a_we  (r_de & i_mem_sel == 2'b00),
-    .i_a_addr(i_mem_waddr              ),
-    .i_b_addr(i_mem_raddr              ),
-    .i_a_data(r_y                      ),
-    .o_b_data(w_mem_y0                 )
+    .clk     (clk         ),
+    .i_a_en  (w_mem_wen_y0),
+    .i_b_en  (i_mem_ren   ),
+    .i_a_we  (w_mem_wen_y0),
+    .i_a_addr(i_mem_waddr ),
+    .i_b_addr(i_mem_raddr ),
+    .i_a_data(r_y         ),
+    .o_b_data(w_mem_y0    )
   );
   simple_dual_one_clock u_mem_y1(
-    .clk     (clk                      ),
-    .i_a_en  (r_de & i_mem_sel == 2'b01),
-    .i_b_en  (i_mem_ren                ),
-    .i_a_we  (r_de & i_mem_sel == 2'b01),
-    .i_a_addr(i_mem_waddr              ),
-    .i_b_addr(i_mem_raddr              ),
-    .i_a_data(r_y                      ),
-    .o_b_data(w_mem_y1                 )
+    .clk     (clk         ),
+    .i_a_en  (w_mem_wen_y1),
+    .i_b_en  (i_mem_ren   ),
+    .i_a_we  (w_mem_wen_y1),
+    .i_a_addr(i_mem_waddr ),
+    .i_b_addr(i_mem_raddr ),
+    .i_a_data(r_y         ),
+    .o_b_data(w_mem_y1    )
   );
   simple_dual_one_clock u_mem_y2(
-    .clk     (clk                      ),
-    .i_a_en  (r_de & i_mem_sel == 2'b10),
-    .i_b_en  (i_mem_ren                ),
-    .i_a_we  (r_de & i_mem_sel == 2'b10),
-    .i_a_addr(i_mem_waddr              ),
-    .i_b_addr(i_mem_raddr              ),
-    .i_a_data(r_y                      ),
-    .o_b_data(w_mem_y2                 )
+    .clk     (clk         ),
+    .i_a_en  (w_mem_wen_y2),
+    .i_b_en  (i_mem_ren   ),
+    .i_a_we  (w_mem_wen_y2),
+    .i_a_addr(i_mem_waddr ),
+    .i_b_addr(i_mem_raddr ),
+    .i_a_data(r_y         ),
+    .o_b_data(w_mem_y2    )
   );
   simple_dual_one_clock u_mem_y3(
-    .clk     (clk                      ),
-    .i_a_en  (r_de & i_mem_sel == 2'b11),
-    .i_b_en  (i_mem_ren                ),
-    .i_a_we  (r_de & i_mem_sel == 2'b11),
-    .i_a_addr(i_mem_waddr              ),
-    .i_b_addr(i_mem_raddr              ),
-    .i_a_data(r_y                      ),
-    .o_b_data(w_mem_y3                 )
+    .clk     (clk         ),
+    .i_a_en  (w_mem_wen_y3),
+    .i_b_en  (i_mem_ren   ),
+    .i_a_we  (w_mem_wen_y3),
+    .i_a_addr(i_mem_waddr ),
+    .i_b_addr(i_mem_raddr ),
+    .i_a_data(r_y         ),
+    .o_b_data(w_mem_y3    )
   );
-
   wire [DATA_WIDTH-1:0] w_mem_u0;
   wire [DATA_WIDTH-1:0] w_mem_u1;
+  wire w_mem_wen_u0 = r_de & (i_mem_sel[0] == 1'b0);
+  wire w_mem_wen_u1 = r_de & (i_mem_sel[0] == 1'b1);
   simple_dual_one_clock u_mem_u0(
-    .clk     (clk                        ),
-    .i_a_en  (r_de & i_mem_sel[0] == 1'b0),
-    .i_b_en  (i_mem_ren                  ),
-    .i_a_we  (r_de & i_mem_sel[0] == 1'b0),
-    .i_a_addr(i_mem_waddr                ),
-    .i_b_addr(i_mem_raddr                ),
-    .i_a_data(r_u                        ),
-    .o_b_data(w_mem_u0                   )
+    .clk     (clk         ),
+    .i_a_en  (w_mem_wen_u0),
+    .i_b_en  (i_mem_ren   ),
+    .i_a_we  (w_mem_wen_u0),
+    .i_a_addr(i_mem_waddr ),
+    .i_b_addr(i_mem_raddr ),
+    .i_a_data(r_u         ),
+    .o_b_data(w_mem_u0    )
   );
   simple_dual_one_clock u_mem_u1(
-    .clk     (clk                        ),
-    .i_a_en  (r_de & i_mem_sel[0] == 1'b1),
-    .i_b_en  (i_mem_ren                  ),
-    .i_a_we  (r_de & i_mem_sel[0] == 1'b1),
-    .i_a_addr(i_mem_waddr                ),
-    .i_b_addr(i_mem_raddr                ),
-    .i_a_data(r_u                        ),
-    .o_b_data(w_mem_u1                   )
+    .clk     (clk         ),
+    .i_a_en  (w_mem_wen_u1),
+    .i_b_en  (i_mem_ren   ),
+    .i_a_we  (w_mem_wen_u1),
+    .i_a_addr(i_mem_waddr ),
+    .i_b_addr(i_mem_raddr ),
+    .i_a_data(r_u         ),
+    .o_b_data(w_mem_u1    )
   );
   wire [DATA_WIDTH-1:0] w_mem_v0;
   wire [DATA_WIDTH-1:0] w_mem_v1;
+  wire w_mem_wen_v0 = w_mem_wen_u0;
+  wire w_mem_wen_v1 = w_mem_wen_u1;
   simple_dual_one_clock u_mem_v0(
-    .clk     (clk                        ),
-    .i_a_en  (r_de & i_mem_sel[0] == 1'b0),
-    .i_b_en  (i_mem_ren                  ),
-    .i_a_we  (r_de & i_mem_sel[0] == 1'b0),
-    .i_a_addr(i_mem_waddr                ),
-    .i_b_addr(i_mem_raddr                ),
-    .i_a_data(r_v                        ),
-    .o_b_data(w_mem_v0                   )
+    .clk     (clk         ),
+    .i_a_en  (w_mem_wen_v0),
+    .i_b_en  (i_mem_ren   ),
+    .i_a_we  (w_mem_wen_v0),
+    .i_a_addr(i_mem_waddr ),
+    .i_b_addr(i_mem_raddr ),
+    .i_a_data(r_v         ),
+    .o_b_data(w_mem_v0    )
   );
   simple_dual_one_clock u_mem_v1(
-    .clk     (clk                        ),
-    .i_a_en  (r_de & i_mem_sel[0] == 1'b1),
-    .i_b_en  (i_mem_ren                  ),
-    .i_a_we  (r_de & i_mem_sel[0] == 1'b1),
-    .i_a_addr(i_mem_waddr                ),
-    .i_b_addr(i_mem_raddr                ),
-    .i_a_data(r_v                        ),
-    .o_b_data(w_mem_v1                   )
+    .clk     (clk         ),
+    .i_a_en  (w_mem_wen_v1),
+    .i_b_en  (i_mem_ren   ),
+    .i_a_we  (w_mem_wen_v1),
+    .i_a_addr(i_mem_waddr ),
+    .i_b_addr(i_mem_raddr ),
+    .i_a_data(r_v         ),
+    .o_b_data(w_mem_v1    )
   );
 
   //=============================================================
@@ -310,7 +317,7 @@ module filter_data_align_5x5_new
       r_px_pad_y40 <= 'b0;
       r_px_pad_y41 <= 'b0;
     end
-    else if(r_mem_de & !o_de) begin
+    else if(r_mem_de[PIXEL_DLY-1] & !o_de) begin
       r_px_pad_y00 <= r_px_pad_y03;
       r_px_pad_y01 <= r_px_pad_y03;
       r_px_pad_y10 <= r_px_pad_y13;
@@ -322,7 +329,7 @@ module filter_data_align_5x5_new
       r_px_pad_y40 <= r_px_pad_y43;
       r_px_pad_y41 <= r_px_pad_y43;
     end
-    else if(r_mem_de) begin
+    else if(|r_mem_de[PIXEL_DLY-1:1]) begin
       r_px_pad_y00 <= r_px_pad_y01;
       r_px_pad_y01 <= r_px_pad_y02;
       r_px_pad_y10 <= r_px_pad_y11;
@@ -351,7 +358,7 @@ module filter_data_align_5x5_new
       r_px_pad_y42 <= 'b0;
       r_px_pad_y43 <= 'b0;
     end
-    else if(i_mem_ren | r_mem_de) begin
+    else if(|r_mem_de[PIXEL_DLY-1:0]) begin
       r_px_pad_y02 <= r_px_pad_y03;
       r_px_pad_y03 <= w_px_pad_y04;
       r_px_pad_y12 <= r_px_pad_y13;
@@ -368,6 +375,7 @@ module filter_data_align_5x5_new
   //=============================================================
   // Part 7. Output Mapping
   //=============================================================
+  assign o_de  = r_mem_de[PIXEL_DLY];
   assign o_y00 = r_px_pad_y00;
   assign o_y01 = r_px_pad_y01;
   assign o_y02 = r_px_pad_y02;
@@ -393,6 +401,28 @@ module filter_data_align_5x5_new
   assign o_y42 = r_px_pad_y42;
   assign o_y43 = r_px_pad_y43;
   assign o_y44 = w_px_pad_y44;
-  assign o_u   = w_aln_u;
-  assign o_v   = w_aln_v;
+
+  //=============================================================
+  // Part 8. U, V Data Delay
+  //=============================================================
+  reg [DATA_WIDTH-1:0] r_dly_u0;
+  reg [DATA_WIDTH-1:0] r_dly_u1;
+  reg [DATA_WIDTH-1:0] r_dly_v0;
+  reg [DATA_WIDTH-1:0] r_dly_v1;
+  always @(posedge clk, negedge rstn) begin
+    if(!rstn) begin
+      r_dly_u0 <= 'b0;
+      r_dly_u1 <= 'b0;
+      r_dly_v0 <= 'b0;
+      r_dly_v1 <= 'b0;
+    end
+    else if (|r_mem_de[PIXEL_DLY-1:0]) begin
+      r_dly_u0 <= w_aln_u;
+      r_dly_u1 <= r_dly_u0;
+      r_dly_v0 <= w_aln_v;
+      r_dly_v1 <= r_dly_v0;
+    end
+  end
+  assign o_u = r_dly_u1;
+  assign o_v = r_dly_v1;
 endmodule
