@@ -1,0 +1,43 @@
+set project image_filter
+set top_module rtl_top
+set dir ~/Project_in_Linux/PROJECT/03_image_filter
+set rtl_dir ${dir}/01_Env/02_Source_Code/06_RTL_Code
+
+new_project ${project}
+
+##Data Import Section
+read_file -type verilog ${rtl_dir}/simple_dual_one_clock.v    
+read_file -type verilog ${rtl_dir}/apb_slave.v                
+read_file -type verilog ${rtl_dir}/filter_fsm.v               
+read_file -type verilog ${rtl_dir}/filter_control.v           
+read_file -type verilog ${rtl_dir}/filter_conv_5x5.v          
+read_file -type verilog ${rtl_dir}/filter_data_align_5x5.v    
+read_file -type verilog ${rtl_dir}/filter_data_align_5x5_new.v
+read_file -type verilog ${rtl_dir}/filter_top_5x5.v           
+read_file -type verilog ${rtl_dir}/filter_top_5x5_new.v       
+read_file -type verilog ${rtl_dir}/csc_mat_mul_3x3.v          
+read_file -type verilog ${rtl_dir}/icsc_mat_mul_3x3.v         
+read_file -type verilog ${rtl_dir}/rtl_top.v                  
+
+##Common Options Section
+set_option enableSV09 yes
+set_option language_mode mixed
+set_option allow_module_override yes
+set_option designread_enable_synthesis yes
+set_option designread_disable_flatten no
+set_option mthresh 32768
+set_option top ${top_module}
+
+##Goal Setup Section
+current_methodology ${SPYGLASS_HOME}/GuideWare/latest/block/rtl_handoff
+
+# Set lint_rtl goal and run
+current_goal lint/lint_rtl
+run_goal
+
+save_project
+
+# Create reports
+exec mkdir -p 2_rpt
+# write_report -reportdir 2_rpt project_summary.rpt
+# write_report -reportdir 2_rpt moresimple.rpt > rp/moresimple.rpt

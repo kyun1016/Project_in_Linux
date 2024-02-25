@@ -102,14 +102,16 @@ module filter_control
   assign o_mem_raddr   = r_cnt_h[0+:MEM_ADDR_WIDTH] - HBP;
   assign o_mem_waddr   = o_mem_raddr - 1;
 
-
   reg [PAD_SIZE*2-1:0] r_pad_y;
+  integer i;
+  // generate
   always @(*) begin
-    for(int i=0; i<PAD_SIZE;++i)
+    for(i=0; i<PAD_SIZE;i=i+1)
       r_pad_y[i] = r_cnt_v == (VBP+LINE_DLY+1+i);
-    for(int i=0; i<PAD_SIZE;++i)
+    for(i=0; i<PAD_SIZE;i=i+1)
       r_pad_y[i+PAD_SIZE] = r_cnt_v == (VBP+LINE_DLY+VAC+1+i);
   end
+  // endgenerate
 
   assign o_pad_y = r_pad_y;
   /* Before

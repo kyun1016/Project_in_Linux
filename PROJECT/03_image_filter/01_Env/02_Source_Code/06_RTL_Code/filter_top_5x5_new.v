@@ -153,7 +153,13 @@ module filter_top_5x5_new
     .o_u          (w_u          ),
     .o_v          (w_v          )
   );
-  filter_conv_5x5 u_conv (
+  filter_conv_5x5 
+  #(
+    .DATA_WIDTH(DATA_WIDTH),
+    .COEF_WIDTH(COEF_WIDTH)
+  )
+  u_conv 
+  (
     .clk     (clk      ),
     .rstn    (rstn     ),
     .i_coef00(i_coef00 ),

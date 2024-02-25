@@ -36,18 +36,10 @@ urg:
 		cd ${dir}/02_Sim/01_func/1_top ;\
 		urg ${urg_option} -dir ./02_exe/simv.vdb &
 
+syn:
+		cd ${dir}/04_Pre_Synthesis ;\
+		dc_shell-t -f ${dir}/01_Env/05_Pre_Synthesis/dc.tcl | tee ./1_log/dc_${date}.log
+
 lint:
-		echo "==== directory list ===="
-		ls ${dir}/03_Lint/.
-		@read -p "Type Directory Name: " dir_name ;\
-		rm -r ${dir}/03_Lint/$${dir_name} ;\
-		mkdir ${dir}/03_Lint/$${dir_name} ;\
-		mkdir ${dir}/03_Lint/$${dir_name}/01_script ;\
-		mkdir ${dir}/03_Lint/$${dir_name}/01_script/01_RTL ;\
-		mkdir ${dir}/03_Lint/$${dir_name}/02_logs ;\
-		mkdir ${dir}/03_Lint/$${dir_name}/03_rpts ;\
-		cp ${dir}/01_Env/04_Lint/run.tcl ${dir}/03_Lint/$${dir_name}/01_script ;\
-		cp ${dir}/01_Env/02_Source_Code/06_RTL_Code/*.v ${dir}/03_Lint/$${dir_name}/01_script/01_RTL/. ;\
-		cd ${dir}/03_Lint/$${dir_name} ;\
-		ls 01_script/01_RTL/*.v > ./01_script/01_RTL/list_rtl.f ;\
-		spyglass & 	
+		cd ${dir}/03_Lint/1_top ;\
+		spyglass -batch -project ${dir}/01_Env/04_Lint/lint.prj -goal lint/lint_rtl | tee ./1_log/sg_${date}.log	

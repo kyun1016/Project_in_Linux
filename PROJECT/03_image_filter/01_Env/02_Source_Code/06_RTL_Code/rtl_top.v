@@ -315,6 +315,7 @@ module rtl_top
   );
   filter_top_5x5
   #(
+    .MEM_ADDR_WIDTH(MEM_ADDR_WIDTH),
     .DATA_WIDTH(DATA_WIDTH),
     .COEF_WIDTH(COEF_WIDTH),
     .RL        (FILTER1_RL)

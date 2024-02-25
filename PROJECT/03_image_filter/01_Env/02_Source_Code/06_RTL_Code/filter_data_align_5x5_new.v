@@ -387,14 +387,12 @@ module filter_data_align_5x5_new
     if(!rstn) begin
       r_px_pad_y02 <= 'b0;
       r_px_pad_y03 <= 'b0;
-      r_px_pad_y10 <= 'b0;
       r_px_pad_y12 <= 'b0;
       r_px_pad_y13 <= 'b0;
       r_px_pad_y22 <= 'b0;
       r_px_pad_y23 <= 'b0;
       r_px_pad_y32 <= 'b0;
       r_px_pad_y33 <= 'b0;
-      r_px_pad_y40 <= 'b0;
       r_px_pad_y42 <= 'b0;
       r_px_pad_y43 <= 'b0;
     end

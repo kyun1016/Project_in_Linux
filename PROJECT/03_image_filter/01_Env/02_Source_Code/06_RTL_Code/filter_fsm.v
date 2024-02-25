@@ -12,7 +12,7 @@ module filter_fsm
   input                           rstn         ,
   input                           i_vs         ,
   input                           i_hs         ,
-  output reg                      o_mem_de     ,
+  output                          o_mem_de     ,
   output     [MEM_ADDR_WIDTH-1:0] o_mem_waddr  ,
   output     [MEM_ADDR_WIDTH-1:0] o_mem_raddr  ,
   output     [MEM_Y_WIDTH-1:0]    o_mem_y_wen  ,
