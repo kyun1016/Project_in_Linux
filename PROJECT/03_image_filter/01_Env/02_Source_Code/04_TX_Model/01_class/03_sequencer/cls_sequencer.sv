@@ -66,7 +66,7 @@ class cls_sequencer;
   task send_line(
     int i_hbp,
     int i_hfp,
-		int i_hsy
+    int i_hsy
   );
     -> m_itf.evt_hs;
     m_itf.i_hs = 1;
@@ -102,10 +102,10 @@ class cls_sequencer;
   task send_frame(
     int i_vbp,
     int i_vfp,
-		int i_vsy,
+    int i_vsy,
     int i_hbp,
     int i_hfp,
-		int i_hsy
+    int i_hsy
   );
     -> m_itf.evt_vs;
     m_itf.i_vs = 1;
